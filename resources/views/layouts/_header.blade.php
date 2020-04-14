@@ -1,5 +1,6 @@
 <!-- 头部 -->
-<header>
+<header style='background: url(front/images/focus.jpg);background-size:cover;background-position: center center;background-repeat: no-repeat;
+'>
 	<div class='topbar'>
 		<nav class="navbar navbar-expand-lg navbar-light mr-auto">
 		  <a class="navbar-brand" href="#">网页标题</a>

@@ -24,7 +24,7 @@
 						<div class='col-md-4 col-sm-6'>
 							<div class="card" style="width: 18rem;">
 								<div class='card-img'>
-									 <img src="E:\myfile\W  Z   Y\图片\-60991a87b114a407_看图王.jpg" class="card-img-top" alt="...">
+									 <img src="/front/images/" class="card-img-top" alt="...">
 								</div>
 							 
 							  <div class="card-body">
@@ -150,62 +150,6 @@
 @endsection
 
 
-
-
-<script type="text/javascript">
-	$(function(){
-		/**
-        *随机颜色
-        *
-        *@param int min 颜色最小值
-        *@param int max 颜色最大值
-        *@return 随机返回 rgb颜色
-		*/
-		function randColor(min,max){
-			var min = min | 0;
-			var max = max | 255;
-			min = min < 0 ? 0 : min;
-			max = max <255 ? 255 : max;
-
-			var r = Math.floor(Math.random() * (max - min+1))+min;
-			var g = Math.floor(Math.random() * (max - min+1))+min;
-			var b = Math.floor(Math.random() * (max - min+1))+min;
-			return {
-				r:r,
-				g:g,
-				b:b
-			}
-
-
-
-		}
-		$('.tag-text').each(function(i,e){
-			var color = randColor();
-			e.style.backgroundColor='rgb('+color.r+','+color.g+','+color.b+')';
-		})
-		//日期计算
-		
-        var nday = $('#day');
-        var nhour = $('#hour');
-        var nmin = $('#min');
-        var nsmt = $('#smt');
-		var ago = new Date('2017-12-5');
-		setInterval(function(){
-			var now = new Date();
-		    var time=Math.abs(Math.floor((ago.getTime()-now.getTime())/1000));//换算秒
-		    var day=Math.floor(time/(24*60*60));//换算天
-	        var hour=Math.floor(time/(60*60)%24);//换算小时
-	        var min=Math.floor(time/60%60);//换算分
-	        var smt=Math.floor(time%60)//换算秒
-	       nday.text(day)
-	       nhour.text(hour)
-	       nmin.text(min)
-	       nsmt.text(smt)
-
-		},1000)
-		
-	})
-</script>
 </body>
 </html>
 
