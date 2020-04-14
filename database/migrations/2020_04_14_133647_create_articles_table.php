@@ -25,7 +25,7 @@ class CreateArticlesTable extends Migration
             $table->tinyinteger('status')->default(1);
             $table->tinyinteger('allow_com')->default(1);
             $table->tinyinteger('reco')->default(0)->comment('推荐');
-            $table->integer('article_num')->comments('浏览数量');
+            $table->integer('visit_num')->comments('浏览数量');
             $table->integer('article_zan')->comments('点赞');
             $table->timestamps();
         });

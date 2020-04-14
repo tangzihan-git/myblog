@@ -2,9 +2,9 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\User;
-use Faker\Generator as Faker;
+// use App\User;
 use Illuminate\Support\Str;
+use Faker\Generator as Faker;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +17,22 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(App\Article::class, function (Faker $faker) {
+	 $date_time = $faker->date . ' ' . $faker->time;
+     $updated_at = $faker->dateTimeThisMonth();//随机一个月
+     $created_at = $faker->dateTimeThisMonth($updated_at);
+     $sentence = $faker->sentence();
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'title'=>$sentence,
+        'user_id'=>1,
+        'body'=>$faker->text(200),
+        'desc'=>$sentence,
+        'key'=>$sentence,
+        'visit_num'=>$faker->numberBetween(0,100),
+        'zan'=>$faker->numberBetween(0,100),
+        'created_at'=>$created_at,
+        'updated_at'=>$updated_at,
+
+
     ];
 });
