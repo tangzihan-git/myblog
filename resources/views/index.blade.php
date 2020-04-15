@@ -89,6 +89,7 @@
 					<h5 class='h5'>友情链接</h5>
 				</div>
 				<div class='friend-link'>
+
 					@if(count($friendLinks))
 					@foreach($friendLinks as $friend)
 					<a href="{{$friend->web_link}}" class=' tag-text'>
@@ -96,6 +97,7 @@
 					</a>
 					@endforeach
 					@endif
+					<a href="javascript:;" class='tag-text bg-info'>虚位以待~~~</a>
 				</div>
             </div>
 			

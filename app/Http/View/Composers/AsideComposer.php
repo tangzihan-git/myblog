@@ -18,7 +18,8 @@ class AsideComposer
     {
         $tags = DB::table('tags')->select('tag_name','id')->get();
         $hots = $this->article->getHotArticle();
-        $view->with(['tags'=>$tags,'hots'=>$hots]);
+        $newcomments = $this->article->getNewComment();//获取最新评论文章
+        $view->with(['tags'=>$tags,'hots'=>$hots,'newcomments'=>$newcomments]);
 
     }
 }

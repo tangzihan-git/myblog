@@ -11,7 +11,7 @@
 			<div class='she'></div>
 			<div class='heart'>
 				<blockquote class="blockquote text-left">
-				<p class="mb-0"><span id='day'></span>天<span id='hour'></span>小时<span id='min'></span>分<span id='smt'></span>秒</p>
+				<p class="mb-0"><span id='day'></span>天<span id='hour'></span>小时<span id='min'></span>分<span id='smt'></span>秒</p>
 				<p class='text-right'>---For In Love</p>
 				</blockquote>
 			</div>
@@ -54,18 +54,13 @@
 				</div>
 				<div class='comments-con'>
 					<ul>
-						<li><a href="#">
-							（1）是v的功夫比v俄方hi那是多久哦i高富帅你舍得解开决定是否给宁波东方</a>
-							<p>@admin感谢博主学到了</p>
+						@if(count($newcomments))
+						@foreach($newcomments as $newcomment)
+						<li><a href="{{route('articles.show',[$newcomment->id])}}">{{$newcomment->title}}</a>
+							<p class='text-secondary'><span class='text-warning'>@四川的网友：</span>{{$newcomment->content}}</p>
 						</li>
-						<li><a href="#">
-							（2）是v的功夫比v俄方hi那是多久哦i高富帅你舍得解开决定是否给宁波东方</a>
-							<p>@admin感谢博主学到了</p>
-						</li>
-						<li><a href="#">
-							（3）是v的功夫比v俄方hi那是多久哦i高富帅你舍得解开决定是否给宁波东方</a>
-							<p>@admin感谢博主学到了</p>
-						</li>
+						@endforeach
+						@endif
 					</ul>
 				</div>
 			</div>
