@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
+use App\Tag;
 use Illuminate\Http\Request;
-use App\Cate;
-use DB;
-class ArticleController extends Controller
+
+class TagController extends Controller
 {
+    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Cate $cate)
+    public function index()
     {
-        // dump($cate::find(1)->article);/
+        //
     }
 
     /**
@@ -42,31 +43,26 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Article  $article
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Tag $tag)
     {
-        // $downid = $id-1;
-        // $upid = $id+1;
         
-        // $article = Article::selectRaw('*')
-        //                     ->whereRaw("id in($upid,$downid,$id)")
-        //                     ->get();
-        // dd($article);
-       
-        $uparticle = Article::where('id',$article->id-1)->select('title')->get();
-        $downarticle = Article::where('id',$article->id+1)->select('title')->get();
-        return view('content',compact('article','uparticle','downarticle'));
+        // dd($tag);
+        $tag=$tag->article()->paginate(10);
+        return view('list',compact('tag'));
+
+
     }
-   
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Article  $article
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit(Tag $tag)
     {
         //
     }
@@ -75,10 +71,10 @@ class ArticleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Article  $article
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, Tag $tag)
     {
         //
     }
@@ -86,10 +82,10 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Article  $article
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Tag $tag)
     {
         //
     }

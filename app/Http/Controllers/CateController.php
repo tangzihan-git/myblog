@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
-use Illuminate\Http\Request;
 use App\Cate;
-use DB;
-class ArticleController extends Controller
+use Illuminate\Http\Request;
+
+class CateController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Cate $cate)
+    public function index()
     {
-        // dump($cate::find(1)->article);/
+        //
     }
 
     /**
@@ -42,31 +41,40 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Article  $article
+     * @param  \App\Cate  $cate
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Cate $cate)
     {
-        // $downid = $id-1;
-        // $upid = $id+1;
+      
+      switch($cate->cate_name){
+        case '心情随笔':
+            $cate=$cate->article()->paginate(15);
+            return view('shuibi',compact('cate'));
+        break;
+        case '美文':
+            $cate=$cate->article()->paginate(10);
+            return view('beau',compact('cate'));
+        break;
+        default:
+            $cate=$cate->article()->paginate(10);
+            return view('list',compact('cate'));
+        break;
+
+      }
+
+
+            
         
-        // $article = Article::selectRaw('*')
-        //                     ->whereRaw("id in($upid,$downid,$id)")
-        //                     ->get();
-        // dd($article);
-       
-        $uparticle = Article::where('id',$article->id-1)->select('title')->get();
-        $downarticle = Article::where('id',$article->id+1)->select('title')->get();
-        return view('content',compact('article','uparticle','downarticle'));
     }
-   
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Article  $article
+     * @param  \App\Cate  $cate
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit(Cate $cate)
     {
         //
     }
@@ -75,10 +83,10 @@ class ArticleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Article  $article
+     * @param  \App\Cate  $cate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, Cate $cate)
     {
         //
     }
@@ -86,10 +94,10 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Article  $article
+     * @param  \App\Cate  $cate
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Cate $cate)
     {
         //
     }

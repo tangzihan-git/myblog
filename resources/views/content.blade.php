@@ -20,8 +20,8 @@
 				<div class='con-realy'>
 					<div class='con-title'>
 						<h3 class='h3' >{{$article->title}}</h3>
-						<span class='text-success'>  </span><span>{{$article->user->name}}</span>
-						<span class='text-secondary'> </span><span>{{$article->updated_at}}</span>
+						<span class='text-success'>  </span><span>{!! $article->user->name !!}</span>
+						<span class='text-secondary'> </span><span>{!! $article->created_at !!}</span>
 						
 						<span>{{$article->visit_num}}人已围观</span>
 						
@@ -32,7 +32,7 @@
 					</div>
 					<br />
 					<div class='con-con'>
-						{{$article->body}}
+						{!! $article->body !!}
 					</div>
 					<div class='con-footer mt-3'>
 						<div class='zan text-center'>

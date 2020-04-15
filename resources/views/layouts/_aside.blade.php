@@ -20,17 +20,14 @@
 	<!-- 爱end -->
 	<!-- 标签云 -->
 		<div class='tag-cloud'>
-			<div class='article-header'>	
+			<div class='article-header'>
+
 			    <h5 class='h5 '>标签云</h5>
 			</div>
 			<div class='tag-con'>
-				<a href="javascript:;" class='tag-text'>Laravel</a>
-				<a href="javascript:;" class='tag-text'>ThinkPHP</a>
-				<a href="javascript:;" class='tag-text'>Linux</a>
-				<a href="javascript:;" class='tag-text'>PHP</a>
-				<a href="javascript:;" class='tag-text'>JavaScript</a>
-				<a href="javascript:;" class='tag-text'>Node.js</a>
-				<a href="javascript:;" class='tag-text'>Redis</a>
+				@foreach($tags as $tag)
+				<a href="{{route('tags.show',[$tag->id])}}" class='tag-text'>{{$tag->tag_name}}</a>
+				@endforeach
 			</div>		
 		</div>
 		<!-- 标签云end -->

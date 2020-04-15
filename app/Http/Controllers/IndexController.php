@@ -17,12 +17,8 @@ class IndexController extends Controller
         $newArticles = $article->getNew();
         //获取友情链接
         $friendLinks = $this->friendLinks();
-
     	//获取网站配置信息
     	return view('index',compact('recos','newArticles','friendLinks'));
-
-
-
     }
     public function friendLinks()
     {

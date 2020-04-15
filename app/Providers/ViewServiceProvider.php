@@ -27,5 +27,8 @@ class ViewServiceProvider extends ServiceProvider
         View::composer(
             'layouts._header', 'App\Http\View\Composers\NavComposer'
         );
+        View::composer(
+            'layouts._aside', 'App\Http\View\Composers\AsideComposer'
+        );
     }
 }

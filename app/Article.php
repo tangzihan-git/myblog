@@ -10,6 +10,7 @@ class Article extends Model
     public $reco_cache_key = 'article_reco';
     public $new_cache_key = 'article_new';
     protected $cache_expire_in_seconds = 1440 * 60;//缓存一天
+    protected $with = ['user','cate'];
 
     //取出该文章的作者
     public function user()
@@ -20,6 +21,11 @@ class Article extends Model
     public function tag()
     {
         return $this->belongsToMany('App\Tag','tag_article');
+    }
+    //取出该文章的栏目
+    public function cate()
+    {
+        return $this->belongsTo('App\Cate');
     }
     
     //缓存站长推荐文章

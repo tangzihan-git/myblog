@@ -22,7 +22,7 @@
 				
 				<div class='zz-con'>
 					<div class='row'>
-						@if($recos)
+						@if(count($recos))
 						@foreach($recos as $reco)
 						<div class='col-md-4 col-sm-6'>
 							<div class="card " style="width: 18rem;height: 18rem; ">
@@ -31,9 +31,9 @@
 								</div>
 							 
 							  <div class="card-body">
-							  	<strong class='card-title text-truncate'>{{$reco->title}} </strong>
+							  	<strong class='card-title text-truncate'>{!! $reco->title !!} </strong>
 							    <p class="card-text overflow-hidden" style='height:6rem'>
-							    {{$reco->desc}}</p>
+							    {!! $reco->desc !!}</p>
 							      <a href="{{route('articles.show',[$reco->id])}}" class="text-success mt-2 d-block">+阅读原文</a>
 							  </div>
 
@@ -57,21 +57,21 @@
             		@foreach($newArticles as $newArticle)
 				    <li class="media">
                         <div class='media-header'>
-                        	 <img src="{{$newArticle->img}}"  height='100' width='200' class="mr-3" alt="...">
+                        	 <img src="{{$newArticle->img}}"  height='150' width='250' class="mr-3" alt="...">
                         	<div class='tags' style='width:97%'>
-                        		<span><span class='text-warning'>&nbsp;</span>{{$newArticle->cate_name}}</span>
-                        		<time><span class='text-primary'> </span>{{$newArticle->created_at}}</time>
-                        		<span><span class='text-secondary'> </span>浏览（{{$newArticle->visit_num}}）</span>
-                        		<span><span class='text-info'>&nbsp;</span>{{$newArticle->name}}</span>
+                        		<span><span class='text-warning'>&nbsp;</span>{!! $newArticle->cate_name !!}</span>
+                        		<time><span class='text-primary'> </span>{!! $newArticle->created_at !!}</time>
+                        		<span><span class='text-secondary'> </span>浏览（{!! $newArticle->visit_num !!}）</span>
+                        		<span><span class='text-info'>&nbsp;</span>{!! $newArticle->name !!}</span>
                         		<span class='float-right '><a href="{{route('articles.show',[$newArticle->id])}}" class='text-success'>++阅读原文</a></span>
 
                         	</div>
                         </div>
 			    		<div class="media-body">
 
-					      <h5 class="mt-0 mb-1 h5">{{$newArticle->title}}</h5>
+					      <h5 class="mt-0 mb-1 h5">{!! $newArticle->title !!}</h5>
 					    
-					      	{{$newArticle->desc}}
+					      	{!! $newArticle->desc !!}
 					      
 					      
 					

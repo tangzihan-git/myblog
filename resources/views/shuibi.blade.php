@@ -11,20 +11,16 @@
 					<h5 class='h5'>心情随笔</h5>
 			    </div>
 			</div>
+			@foreach($cate as $article)
 			    <div  class='sb-con'>
-					<time class='love'> 【2020-09-56】</time>
-					<span class='text-info'>@唐先生</span>
-					提出法国v还不及热
+					<time class='love'> 【{!! $article->created_at !!}】</time>
+					<span class='text-info'>{!! '@'.$article->user->name !!}</span>
+					{!! $article->body !!}
 				
 				</div>
-				<div  class='sb-con'>
-					<time class='love'> 【2020-09-56】</time>
-					<span class='text-pink'>@巫小姐</span>
-					提出法国v还不及热
+			@endforeach
 				
-				</div>
-				
-			
+			{!! $cate->render() !!}
 	    </div>
 		@include('layouts._aside')
 	</div>
