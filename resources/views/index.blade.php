@@ -89,15 +89,13 @@
 					<h5 class='h5'>友情链接</h5>
 				</div>
 				<div class='friend-link'>
-					<a href="#" class=' tag-text'>
-						csdn博客
+					@if(count($friendLinks))
+					@foreach($friendLinks as $friend)
+					<a href="{{$friend->web_link}}" class=' tag-text'>
+						{{$friend->web_name}}
 					</a>
-					<a href="#" class='tag-text'>
-						csdn博客
-					</a>
-					<a href="#" class=' tag-text'>
-						csdn博客cngcngsfhrrh
-					</a>
+					@endforeach
+					@endif
 				</div>
             </div>
 			
