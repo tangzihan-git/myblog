@@ -82,7 +82,7 @@
 						@foreach($hots as $hot)
 						<li>
 							<a href="{{route('articles.show',[$hot->id])}}">{{$hot->title}}</a>
-							<p>阅读数（{{$hot->visit_num}}）</p>
+							<p class='text-secondary'>阅读数&nbsp;{{$hot->visit_num}}</p>
 						</li>
 						@endforeach
 						@endif
