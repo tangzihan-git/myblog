@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('title','唐子涵的个人博客')
-@section('description','唐子涵的个人博客')
-@section('keywords','博客','个人博客','博客模板','个人站')
+@section('title',$article->title)
+@section('description',$article->desc)
+@section('keywords',$article->key)
 @section('styles')
 <link rel="stylesheet" type="text/css" href="/front/css/content.css">
 @endsection
@@ -14,30 +14,37 @@
 						您现在的位置是：
 						<li class='breadcrumb-item'><a href="#">首页</a></li>
 						<li class='breadcrumb-item'><a href="#">个人博客</a></li>
-				
-						
 					</ol>
 					<h5 class='h5'>个人博客</h5>
 				</div>
 				<div class='con-realy'>
 					<div class='con-title'>
-						<h3 class='h3' >文章标题</h3>
-						<span class='text-success'>  </span><span>唐先生</span>
-						<span class='text-secondary'> </span><span>2020-4-7</span>
-						<span>【计算机技术】</span>
-						<span>5456人已围观</span>
+						<h3 class='h3' >{{$article->title}}</h3>
+						<span class='text-success'>  </span><span>{{$article->user->name}}</span>
+						<span class='text-secondary'> </span><span>{{$article->updated_at}}</span>
+						
+						<span>{{$article->visit_num}}人已围观</span>
+						
+							@foreach($article->tag as $tagname)
+						<span>【{{$tagname->tag_name}}】</span>
+						@endforeach
+						
 					</div>
 					<br />
 					<div class='con-con'>
-						， 
+						{{$article->body}}
 					</div>
 					<div class='con-footer mt-3'>
 						<div class='zan text-center'>
-							<a href="javascript:;" class='text-light article-zan'>赞（<span>90</span>）</a>
+							<a href="javascript:;" class='text-light article-zan'>赞（<span>{{$article->zan}}</span>）</a>
 						</div>
-						
-						<p><a href="#" class='text-dark'>上一篇：成都v</a></p>
-						<p><a href="#" class='text-dark'>下一篇：的法国人</a></p>
+					    @isset($uparticle[0])
+						<p><a href="{{route('articles.show',[$article->id-1])}}" class='text-dark'>上一篇：{{$uparticle[0]->title}}</a></p>
+
+						@endisset
+						@isset($downarticle[0])
+						<p><a href="{{route('articles.show',[$article->id+1])}}" class='text-dark'>下一篇：{{$downarticle[0]->title}}</a></p>
+						@endisset
 					</div>	
 				</div>
 			</div>

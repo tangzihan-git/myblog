@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'IndexController@index');
 
 Route::resource('articles','ArticleController');
+
+Route::get('test',function(){
+	return view('content');
+});

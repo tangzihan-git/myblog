@@ -19,58 +19,31 @@
 					<h5 class='h5'>站长推荐</h5>
 				</div>
 				<!-- 推荐内容 -->
+				
 				<div class='zz-con'>
 					<div class='row'>
+						@if($recos)
+						@foreach($recos as $reco)
 						<div class='col-md-4 col-sm-6'>
-							<div class="card" style="width: 18rem;">
+							<div class="card " style="width: 18rem;height: 18rem; ">
 								<div class='card-img'>
-									 <img src="/front/images/" class="card-img-top" alt="...">
+									 <img src="{{$reco->img}}" class="card-img-top" alt="...">
 								</div>
 							 
 							  <div class="card-body">
-							  	<strong class='card-title'>【苹果新系统】苹果推送 </strong>
-							    <p class="card-text">
-							    苹果推送了macos mojave正式版（下文统一称为苹果新系统），作为苹果最新的系统安装版，如何进行安装更新....</p>
-
-							      <a href="#" class="text-success mt-2 d-block">+阅读原文</a>
+							  	<strong class='card-title text-truncate'>{{$reco->title}} </strong>
+							    <p class="card-text overflow-hidden" style='height:6rem'>
+							    {{$reco->desc}}</p>
+							      <a href="{{route('articles.show',[$reco->id])}}" class="text-success mt-2 d-block">+阅读原文</a>
 							  </div>
 
 							</div>
 						</div>
-						<div class='col-md-4 col-sm-6'>
-							<div class="card" style="width: 18rem;">
-								<div class='card-img'>
-									 <img src="./images/1563795007904.jpeg" class="card-img-top" alt="...">
-								</div>
-							 
-							  <div class="card-body">
-							  	<strong class='card-title'>【苹果新系统】苹果推送 </strong>
-							    <p class="card-text">
-							    苹果推送了macos mojave正式版（下文统一称为苹果新系统），作为苹果最新的系统安装版，如何进行安装更新....</p>
-
-							      <a href="#" class="text-success mt-2 d-block">+阅读原文</a>
-							  </div>
-
-							</div>
-						</div>
-						<div class='col-md-4 col-sm-6'>
-							<div class="card" style="width: 18rem;">
-								<div class='card-img'>
-									 <img src="./images/-741352d2e87aa1a4.jpg" class="card-img-top" alt="...">
-								</div>
-							 
-							  <div class="card-body">
-							  	<strong class='card-title'>【苹果新系统】苹果推送 </strong>
-							    <p class="card-text">
-							    苹果推送了macos mojave正式版（下文统一称为苹果新系统），作为苹果最新的系统安装版，如何进行安装更新....</p>
-
-							      <a href="#" class="text-success mt-2 d-block">+阅读原文</a>
-							  </div>
-
-							</div>
-						</div>
+						@endforeach
+					    @endif
 					</div>
 				</div>
+				
 			</div>
 			<!-- 站长推荐end -->
 			<!-- 最新发布 -->
