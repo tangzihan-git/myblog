@@ -26,7 +26,7 @@ class ArticlesTableSeeder extends Seeder
         //获取faker实例
         $faker = app(Faker\Generator::class);
         $articles = factory(Article::class)
-        			->times(30)
+        			->times(3000)
         			->make()
         			->each(function($article,$index) use ($cate_id,$faker,$avatars)
         			{

@@ -53,44 +53,33 @@
 					<h5 class='h5'>最新发布</h5>
 				</div>
             	<ul class="list-unstyled">
+            		@if(count($newArticles))
+            		@foreach($newArticles as $newArticle)
 				    <li class="media">
                         <div class='media-header'>
-                        	 <img src="https://resource.cdn.rainss.cn/2020/03/1617745454.png" width="250" class="mr-3" alt="...">
+                        	 <img src="{{$newArticle->img}}"  height='100' width='200' class="mr-3" alt="...">
                         	<div class='tags' style='width:97%'>
-                        		<span><span class='text-warning'>&nbsp;</span>计算机技术</span>
-                        		<time><span class='text-primary'> </span>2019-8-9</time>
-                        		<span><span class='text-secondary'> </span>浏览（90）</span>
-                        		<span><span class='text-info'>&nbsp;</span>唐先生</span>
-                        		<span class='float-right '><a href="#" class='text-success'>++阅读原文</a></span>
+                        		<span><span class='text-warning'>&nbsp;</span>{{$newArticle->cate_name}}</span>
+                        		<time><span class='text-primary'> </span>{{$newArticle->created_at}}</time>
+                        		<span><span class='text-secondary'> </span>浏览（{{$newArticle->visit_num}}）</span>
+                        		<span><span class='text-info'>&nbsp;</span>{{$newArticle->name}}</span>
+                        		<span class='float-right '><a href="{{route('articles.show',[$newArticle->id])}}" class='text-success'>++阅读原文</a></span>
 
                         	</div>
                         </div>
 			    		<div class="media-body">
 
-					      <h5 class="mt-0 mb-1 h5">List-based media object</h5>
-					      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+					      <h5 class="mt-0 mb-1 h5">{{$newArticle->title}}</h5>
+					    
+					      	{{$newArticle->desc}}
+					      
+					      
 					
 					    </div>
 					</li>
-					<li class="media">
-                        <div class='media-header'>
-                        	 <img src="https://resource.cdn.rainss.cn/2020/03/1617745454.png" width="250" class="mr-3" alt="...">
-                        	<div class='tags' style='width:97%'>
-                        		<span><span class='text-warning'>&nbsp;</span>计算机技术</span>
-                        		<time><span class='text-primary'> </span>2019-8-9</time>
-                        		<span><span class='text-secondary'> </span>浏览（90）</span>
-                        		<span><span class='text-pink'>&nbsp;</span>巫小姐</span>
-                        		<span class='float-right '><a href="#" class='text-success'>++阅读原文</a></span>
-
-                        	</div>
-                        </div>
-			    		<div class="media-body">
-
-					      <h5 class="mt-0 mb-1 h5">List-based media object</h5>
-					      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+					@endforeach
+					@endif
 					
-					    </div>
-					</li>
 				</ul>
             </div>
             <!-- 友情链接 -->

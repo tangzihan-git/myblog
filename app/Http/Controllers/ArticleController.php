@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use Illuminate\Http\Request;
 use App\Cate;
+use DB;
 class ArticleController extends Controller
 {
     /**
@@ -57,9 +58,7 @@ class ArticleController extends Controller
         $downarticle = Article::where('id',$article->id+1)->select('title')->get();
         return view('content',compact('article','uparticle','downarticle'));
     }
-
-
-
+   
     /**
      * Show the form for editing the specified resource.
      *

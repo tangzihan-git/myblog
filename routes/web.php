@@ -10,11 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use Carbon\Carbon;
 Route::get('/', 'IndexController@index');
-
+Route::get('test','ArticleController@test');
 Route::resource('articles','ArticleController');
 
-Route::get('test',function(){
-	return view('content');
-});
+
