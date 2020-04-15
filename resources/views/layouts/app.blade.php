@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>@yield('title','唐子涵的博客')</title>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{csrf_token()}}">
-	<title>@yield('title','唐子涵的博客')</title>
-	<meta name="description" content="@yield('description', '唐子涵的个人博客')" />
-   	<meta name="keywords" content="@yield('keywords','博客，个人博客，个人博客模板')">
-    <meta name="author" content="Tang Zi Han,2197486242@qq.com">
+	<meta name="keywords" content="@yield('keywords','博客,唐子涵个人博客,技术博客,个人博客,唐子涵技术博客,php个人博客,优秀的个人网站,优秀的个人
+博客')">
+	<meta name="description" content="@yield('description', '唐子涵的个人博客，是一个爱音乐，爱分享的男程序猿的个人博客网站，分享个人开发经验的技术博客')" />
+    <meta name="author" content="唐子涵,2197486242@qq.com">
     <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://www.zihanzy.com"/>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous\">
 	<link rel="stylesheet" type="text/css" href="/front/css/base.css">
 	<link rel="stylesheet" type="text/css" href="/front/css/index.css">

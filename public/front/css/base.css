@@ -40,3 +40,6 @@ body{background:#E9EAED;}
 		font-weight:normal;
 		font-style:normal;
 }
+.list-style{
+	list-style: disc !important;
+}

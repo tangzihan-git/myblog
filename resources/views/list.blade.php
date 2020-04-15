@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('title','唐子涵的个人博客')
-@section('description','唐子涵的个人博客')
-@section('keywords','博客','个人博客','博客模板','个人站')
+@section('title')
+@section('description')
+@section('keywords')
 @section('content')
 <div class='row'>
 <div class='col-md-9 col-sm-12'>
