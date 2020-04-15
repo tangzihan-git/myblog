@@ -31,21 +31,7 @@
 			</div>		
 		</div>
 		<!-- 标签云end -->
-		<!-- 归档 -->
-		<div class='sort'>
-			<div class='article-header'>
-					<h5 class='h5 '>归档</h5>
-			</div>
-		<div class='sort-con'>
-			<ul class='list-unstyled'>
-				<li><a href="#">2020年4月</a><span class='float-right'>45篇</span></li>
-				<li><a href="#">2020年4月</a><span class='float-right'>45篇</span></li>
-				<li><a href="#">2020年4月</a><span class='float-right'>45篇</span></li>
-				<li><a href="#">2020年4月</a><span class='float-right'>45篇</span></li>
-			</ul>
-		</div>
-		</div>
-	<!-- 归档end -->
+		
 			<!-- 最新评论 -->
 			<div class='comments'>
 				<div class='article-header'>
