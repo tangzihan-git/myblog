@@ -26,6 +26,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        //每天03：00生成热门文章
+        $schedule->command('blog:cal-hot-articles')->dailyAt('3:00');
     }
 
     /**

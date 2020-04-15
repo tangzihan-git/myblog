@@ -8,6 +8,13 @@ use App\Cate;
 use DB;
 class ArticleController extends Controller
 {
+    public function test(Article $article)
+    {
+      dump($article->getHotArticle());
+      // Cache::put
+        // dump(123);
+
+    }
     /**
      * Display a listing of the resource.
      *

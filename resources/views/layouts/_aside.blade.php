@@ -78,18 +78,14 @@
 				</div>
 				<div class='hot-con'>
 					<ul>
+						@if(count($hots))
+						@foreach($hots as $hot)
 						<li>
-							<a href="#">lnmp环境系列----Linux安装Mysql详细教程</a>
-							<p>阅读数（990）</p>
+							<a href="{{route('articles.show',[$hot->id])}}">{{$hot->title}}</a>
+							<p>阅读数（{{$hot->visit_num}}）</p>
 						</li>
-						<li>
-							<a href="#">lnmp环境系列----Linux安装Mysql详细教程</a>
-							<p>阅读数（990）</p>
-						</li>
-						<li>
-							<a href="#">lnmp环境系列----Linux安装Mysql详细教程</a>
-							<p>阅读数（990）</p>
-						</li>
+						@endforeach
+						@endif
 					</ul>
 				</div>
 			</div>

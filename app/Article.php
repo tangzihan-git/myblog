@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Cache;
+use App\Traits\HotArticleHelper;
 class Article extends Model
 {
+    use HotArticleHelper;
     protected $fillable = ['title','cate_id','body','desc','key','img','allow_com','reco'];
     public $reco_cache_key = 'article_reco';
     public $new_cache_key = 'article_new';
@@ -26,6 +28,15 @@ class Article extends Model
     public function cate()
     {
         return $this->belongsTo('App\Cate');
+    }
+    //取出该文章的评论
+    // public function comment()
+    // {
+    //     return $this->hasMany('App\Comment')
+    // }
+    public function comment()
+    {
+        return $this->hasMany('App\Comment');
     }
     
     //缓存站长推荐文章

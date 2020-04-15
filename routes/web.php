@@ -17,3 +17,4 @@ Route::get('test','ArticleController@test');
 Route::resource('articles','ArticleController');
 Route::resource('tags','TagController');
 Route::resource('cates','CateController');
+
