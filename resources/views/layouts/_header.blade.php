@@ -10,11 +10,10 @@
 		    <ul class="navbar-nav mr-auto">
 		    	@foreach($datas as $data)
 		        <li class="nav-item active">
-		      	@if($data->cate_name!='关于我')
+		      	@if($data->cate_name!='关于我' && $data->cate_name!='文章归档')
 		        <a class="nav-link text-nowrap" href="{{route('cates.show',[$data->id])}}">{{$data->cate_name}}<span class="sr-only">(current)</span></a>
 		        @elseif($data->cate_name=='关于我')
 		         <a class="nav-link text-nowrap" href="{{route('articles.show',[$data->id])}}">{{$data->cate_name}}<span class="sr-only">(current)</span></a>
-		         
 		        @elseif($data->cate_name=='文章归档')
 		        <a class="nav-link text-nowrap" href="{{url('/files')}}">{{$data->cate_name}}<span class="sr-only">(current)</span></a>
 		        @endif
