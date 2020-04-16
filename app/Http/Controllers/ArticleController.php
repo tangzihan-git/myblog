@@ -8,11 +8,29 @@ use App\Cate;
 use DB;
 class ArticleController extends Controller
 {
-    public function test(Article $article)
+    //归档
+    public function files()
     {
-      dump($article->getHotArticle());
-      // Cache::put
-        // dump(123);
+      
+        $dates = ['2020-04'];      
+        $articles=DB::table('articles')->select('id','title','created_at')->where('status',1)->limit(10)->get();
+       
+        return view('guidang',compact('articles','dates'));
+
+    }
+    public function test()
+    {
+
+    DB::connection('mongodb')       //选择使用mongodb
+              ->collection('users')           //选择使用users集合
+              ->insert([                          //插入数据
+                      'name'  =>  'tom', 
+                      'age'     =>   18
+                  ]);
+
+
+    $res = DB::connection('mongodb')->collection('users')->all();   //查询所有数据
+    dd($res);                                            //打印数据
 
     }
     /**

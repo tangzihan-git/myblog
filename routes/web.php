@@ -12,6 +12,7 @@
 */
 use Carbon\Carbon;
 Route::get('/', 'IndexController@index');
+Route::get('files','ArticleController@files');
 Route::get('test','ArticleController@test');
 
 Route::resource('articles','ArticleController');

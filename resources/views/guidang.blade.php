@@ -11,20 +11,32 @@
 				<h5 class='h5'>文章归档</h5>
 	    	</div>
 		</div>
+        
+		
 	    <dl class='mt-3 zxfb'>
-		    <dt class='h2 ml-1'>2020</dt>
+     
+			@foreach($dates as $date)
+			
+		    <dt class='h2 ml-1'>{{$date}}</dt>
+            
+			@foreach($articles as $article)
+			@if(date('Y-m',strtotime($article->created_at))===$date)
 		    <dd class='ml-5'>
 		    <ul class='list-style'>
-		    <li><span>2020-9-9</span><a class='ml-2' href='#'>是德国我扔个法格式给三个</a></li>
-		    <li><span>2020-9-9</span><a class='ml-2' href='#'>是德国我扔个法格式给三个</a></li>
-		    <li><span>2020-9-9</span><a class='ml-2' href='#'>是德国我扔个法格式给三个</a></li>
-		    <li><span>2020-9-9</span><a class='ml-2' href='#'>是德国我扔个法格式给三个</a></li>
-		    <li><span>2020-9-9</span><a class='ml-2' href='#'>是德国我扔个法格式给三个</a></li>
-		    <li><span>2020-9-9</span><a class='ml-2  overflow-hidden' href='#'>是德国我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个我扔个法格式给三个</a></li>
 
+		    <li><span>{{$article->created_at}}</span>
+		    	<a class='ml-2' href="{{route('articles.show',[$article->id])}}">{{$article->title}}</a></li>
 		    </ul>
+
+		    @endif
+
+		    @endforeach
 		    </dd>
+		   
+		    @endforeach
 	    </dl>
+	
+	    
 	   
 	</div>
     @include('layouts._aside')
