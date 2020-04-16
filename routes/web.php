@@ -12,9 +12,7 @@
 */
 use Carbon\Carbon;
 Route::get('/', 'IndexController@index');
-Route::get('test',function(){
-	return view('guidang');
-});
+Route::get('test','ArticleController@test');
 
 Route::resource('articles','ArticleController');
 Route::resource('tags','TagController');
