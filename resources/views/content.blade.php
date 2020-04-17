@@ -213,10 +213,30 @@
         		})
         	}
         //文章点赞
-        $('.article-zan').one('click',function(){
-        	// $(this).text($(this).next()+1)
+        $('.article-zan').on('click',function(){
+        	that = $(this)
         	var article_zan = parseInt($(this).children().text())
-        	$(this).children().text(article_zan+1)
+        	$.ajax({
+        		headers: {
+			    		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+        			url:"{{url('/article/zan')}}",
+        			type:'get',
+        			dataType:'json',
+        			data:{
+        				"code":200,
+        				"articleid":articleid
+        			},
+        			success:function(msg){
+        				if(msg.status==0) {
+        					alert('你已经点过赞了哦')
+        					return false;
+        				};
+						 that.children().text(article_zan+1)
+        			}
+        	})
+        	
+        	
         })
 	})
 </script>

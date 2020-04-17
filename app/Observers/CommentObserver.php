@@ -14,7 +14,7 @@ class CommentObserver
      */
     public function saving(Comment $comment)
     {
-        $comment->content = clean($comment->content, 'user_body');
+        $comment->content = clean($comment->content, 'user_body');//xss过滤
     }
     
     public function created(Comment $comment)

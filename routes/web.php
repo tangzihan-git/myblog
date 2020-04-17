@@ -14,7 +14,7 @@ use Carbon\Carbon;
 Route::get('/', 'IndexController@index');
 Route::get('files','ArticleController@files');
 Route::get('test','CommentController@getProvince');
-
+Route::get('article/zan','ArticleController@zan');
 Route::resource('articles','ArticleController');
 Route::resource('tags','TagController');
 Route::resource('cates','CateController');

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Cate;
 use DB;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cookie;
 class ArticleController extends Controller
 {
     //归档
@@ -19,7 +20,21 @@ class ArticleController extends Controller
         return view('guidang',compact('articles','dates'));
 
     }
-  
+    //点赞
+    public function zan(Article $article ,Request $request)
+    {
+        $flag=1;
+        if($request->code){
+            $article->find($request->articleid)->increment('zan');
+            //点赞存储文章id
+            $cookie = cookie('article', $request->articleid, 60);
+            $value = Cookie::get('article');
+            if($value==$request->articleid)$flag=0;
+            return response()->json(['status'=>$flag,'value'=>$value])->cookie($cookie);
+
+
+        }
+    }
     /**
      * Display a listing of the resource.
      *
