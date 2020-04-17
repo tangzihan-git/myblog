@@ -192,7 +192,7 @@
 			    		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					},
         			url:"{{url('/comments')}}",
-        			type:'get',
+        			type:'post',
         			dataType:'json',
         			data:{
         				"parentid":parentid,

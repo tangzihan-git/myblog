@@ -11,8 +11,9 @@
 			background: #fff;
 		}
 		.sb-con{
-            height:800px;
+            height:1200px;
 			padding:20px;
+			overflow: hidden;
 		}
 		time{
 			display: block;
@@ -26,34 +27,58 @@
 		<div class='col-md-9 col-sm-12'>
 			<div class='sb'>
 				<div class='article-header'>
-					<span class='float-right'>随笔en</span>
+					<span class='float-right'></span>
 					<h5 class='h5'>留言版</h5>
 			    </div>
-			
+			  <div class="alert alert-info mt-3 p-3 col-md-12" role="alert">
+			  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+			  <h4 class="alert-heading h4 mb-3">欢迎来到唐子涵的个人博客</h4>
+			  <p>留下你对博主想说的...</p>
+			  <p>或者对网站的吐槽...</p>
+			  <p>或者有关技术问题...</p>
+			  <p>或者交换友链...</p>
+			  <p>......</p>
+			  <hr>
+			</div>
 			    <div  class='sb-con'>
 					<div id="content" style="width: 700px; height: auto;">
 					<div class="wrap">
 						<div class="comment">
 							<div class="head-face">
-								<img src="images/1.jpg" / >
-								<p>我是鸟</p>
+								<p><a href="#" class='btn btn-info'>登录</a></p>
 							</div>
 							<div class="content">
 								<div class="cont-box">
-									<textarea class="text" placeholder="请输入..."></textarea>
+									<textarea class="text" id='messages' placeholder="<----[笑cry]登录QQ后才能发表留言哦~"></textarea>
 								</div>
 								<div class="tools-box">
 									<div class="operator-box-btn"><span class="face-icon"  >☺</span></div>
-									<div class="submit-btn"><input type="button" onClick="out()"value="提交评论" /></div>
+									<div class="submit-btn"><input type="button" id='submit' value="提交留言" /></div>
 								</div>
 							</div>
 						</div>
 						<div id="info-show">
-							<ul></ul>
+							<ul>
+								@foreach($data as $v)
+								<li>
+									<div class="head-face">
+										<img src="images/1.jpg" / >
+									</div>
+									<div class="reply-cont">
+										<p class="username">{{$v->user_name}}</p>
+										<p class="comment-body">{{$v->user_con}}</p>
+										<p class="comment-footer">{{$v->created_at}}</p>
+									</div>
+								</li>
+								@endforeach
+							</ul>
 						</div>
 					</div>
 				</div>
 				</div>
+				{{ $data->links() }}
 			</div>
 
 	    </div>
@@ -66,12 +91,36 @@
 <script type="text/javascript">
      //留言版
 		// 绑定表情
+
+		var submit = $('#submit');
+		submit.click(function(){
+			var inputText = htmlEscape($('.text').val());
+				$.ajax({
+        			headers: {
+			    		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+        			url:"{{url('/message')}}",
+        			type:'post',
+        			dataType:'json',
+        			data:{
+        				"content":inputText
+        			},
+        			success:function(msg){
+        				// console.log(msg)
+        				// if(!msg.status){
+        				// 	alert('请先登录');
+        				// 	return false;
+
+        				// }
+						
+						$('#info-show ul').append(reply(AnalyticEmotion(inputText)));
+        			}
+        		})
+			
+		})
 		$('.face-icon').SinaEmotion($('.text'));
 		// 测试本地解析
-		function out() {
-			var inputText = $('.text').val();
-			$('#info-show ul').append(reply(AnalyticEmotion(inputText)));
-		}
+		
 		
 		var html;
 		function reply(content){
@@ -86,7 +135,18 @@
 			html += '</div>';
 			html += '</li>';
 			return html;
+
 		}
+		function htmlEscape(text){ 
+			  	return text.replace(/[<>"&]/g, function(match, pos, originalText){
+			    switch(match){
+			    case "<": return "&lt;"; 
+			    case ">":return "&gt;";
+			    case "&":return "&amp;"; 
+			    case "\"":return "&quot;"; 
+			  } 
+			  });
+	    }
 
 </script>
 @endsection

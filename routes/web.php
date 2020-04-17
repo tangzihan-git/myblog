@@ -20,6 +20,11 @@ Route::resource('tags','TagController');
 Route::resource('cates','CateController');
 
 //评论
-Route::get('comments','CommentController@store')->middleware('throttle:5,1');//评论限制一分钟最多发布5条
 
-//测试
+Route::get('comments','CommentController@store')->middleware('throttle:5,1');//评论限制一分钟最多发布5条
+//留言
+Route::match(['get', 'post'],'message','CommentController@messages');
+//普通用户登录
+// Route::get()
+
+
