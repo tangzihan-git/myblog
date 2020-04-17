@@ -26,8 +26,8 @@
 		</nav>
 	</div>
 	<div class='bar-text'>
-		<h3 class='h3'>在此添加文案</h3>
-		<p>在此添加副标题</p>
+		<h3 class='h3'>你尽管努力变优秀 你想要的以后都会有</h3>
+		<p class='h6'>Even if you try to be good, you will always have what you want</p>
 	</div>
 </header>
 <!-- 头部end -->

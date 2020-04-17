@@ -7,8 +7,8 @@
 		<div class='col-md-9 col-sm-12'>
 			<div class='beau mr-30'>
 				<div class='article-header'>
-					<span class='float-right'>
-						一个人，一座城
+					<span class='float-right text-secondary'>
+						”只愿世间风景千般万般熙攘过后，字里行间，人我两忘，相对无言“
 					</span>
 					<h5 class='h5'>美文</h5>
 			    </div>

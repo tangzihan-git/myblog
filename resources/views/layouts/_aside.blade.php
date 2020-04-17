@@ -22,7 +22,7 @@
 		<div class='tag-cloud'>
 			<div class='article-header'>
 
-			    <h5 class='h5 '>标签云</h5>
+			    <h5 class='h5 '>热门标签</h5>
 			</div>
 			<div class='tag-con'>
 				@foreach($tags as $tag)
