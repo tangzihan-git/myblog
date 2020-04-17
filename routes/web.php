@@ -13,9 +13,13 @@
 use Carbon\Carbon;
 Route::get('/', 'IndexController@index');
 Route::get('files','ArticleController@files');
-Route::get('test','ArticleController@test');
+Route::get('test','CommentController@getProvince');
 
 Route::resource('articles','ArticleController');
 Route::resource('tags','TagController');
 Route::resource('cates','CateController');
 
+//评论
+Route::get('comments','CommentController@store')->middleware('throttle:5,1');//评论限制一分钟最多发布5条
+
+//测试

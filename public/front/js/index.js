@@ -48,29 +48,29 @@ $(function(){
 	       nsmt.text(smt)
 
 		},1000)
-		//评论框显示
-        $('.callback').each(function(i,e){
-        	$(e).click(function(){
-        		// console.log($(e).data('flag'))
+		// //评论框显示
+  //       $('.huifu').each(function(i,e){
+  //       	$(e).on('click','li',function(){
+  //       		// console.log($(e).data('flag'))
         		
-        		if($(e).data('flag')==0){
+  //       		if($(e).data('flag')==0){
         			
-        			$(e).data('flag',1)
-        			$(this).parent().parent().append("<form class='pl'><div class='form-group'><textarea class='form-control' name='conment' placeholder='说两句吧~'' required></textarea></div> <div class='form-group row'><img src='https://blog.yzmcms.com/api/index/code.html???????css/'class='ml-3' style='height: 40px;'><input type='text' class='col-sm-2 form-control' required name='random'><input type='submit' value='提交' class='btn btn-info ml-1' name=''></div></form>")
-        		}else{
-        			$(e).data('flag',0)
-        			console.log($(this).parent().next().remove());
+  //       			$(e).data('flag',1)
+  //       			$(this).parent().parent().append("<form class='pl'><div class='form-group'><textarea class='form-control' name='conment' placeholder='说两句吧~'' required></textarea></div> <div class='form-group row'><img src='https://blog.yzmcms.com/api/index/code.html???????css/'class='ml-3' style='height: 40px;'><input type='text' class='col-sm-2 form-control' required name='random'><input type='submit' value='提交' class='btn btn-info ml-1' name=''></div></form>")
+  //       		}else{
+  //       			$(e).data('flag',0)
+  //       			console.log($(this).parent().next().remove());
         			
-        		}
+  //       		}
         		
-        	})
-        })
-        //文章点赞
-        $('.article-zan').one('click',function(){
-        	// $(this).text($(this).next()+1)
-        	var article_zan = parseInt($(this).children().text())
-        	$(this).children().text(article_zan+1)
-        })
+  //       	})
+  //       })
+  //       //文章点赞
+  //       $('.article-zan').one('click',function(){
+  //       	// $(this).text($(this).next()+1)
+  //       	var article_zan = parseInt($(this).children().text())
+  //       	$(this).children().text(article_zan+1)
+  //       })
 
 		
 	})

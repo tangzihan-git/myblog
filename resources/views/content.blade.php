@@ -52,50 +52,175 @@
 		<div class='comment'>
 			<div class='article-header'>
 				<h5 class='h5'>文章评论</h5>
+
 			</div>
-			    @foreach($article->comment as $comments)
-				<div class='showcomment'>
+			    <div class='my' data-flag='0'>		   
+			    	 @foreach($comment as $key=>$comments)
+				
+				<div class='showcomment overflow-hidden'>
 					<!-- 主评论 -->
 				
-					<div class='small mt-2' style='width:{{(100-($comments->level*10))+10}}%;margin-left: {{100-((100-($comments->level*10))+10)}}%'>
+					<div class='small mt-2' style="width:{{(100-($comments['level']*10))+10}}%;margin-left: {{100-((100-($comments['level']*10))+10)}}%">
 					    <div>
 						    <img src="https://dss0.baidu.com/73x1bjeh1BF3odCf/it/u=970046986,3090048325&fm=85&s=4C12C519C8913CCA569E5FC2030080A8">
-						    <span>四川的网友</span>
-					        <time>{{$comments->created_at}}</time>
+						    <span>#@热心网友</span>
+					        <time>{{$comments['created_at']}}</time>
 					        <span class='float-right'>
 					    	  
 					        </span>
 					        <div class='mentcon'>
-					        <p>{{$comments->content}}</p>
+					        <p>{{$comments['content']}}</p>
 					        <br><br>
-					        <ul>
-					        	<!-- 点赞 -->
-					      
-							<!-- 回复 -->
-							<li class="callback" data-flag='0' data-level='{{$comments->level}}' date-parent='{{$comments->parent_id}}' >&nbsp;
-							    	 回复
-							</li>
+					        <ul class='huifu'>
+					        	<li class="callback" data-flag='0' data-level='{{$comments['level']}}' data-parent='{{$comments['id']}}' >回复</li>
 						    </ul>
+
 					       </div>
 					    </div>
 				    </div>
+
 				</div>
+
 				@endforeach
+			    </div>
+			   
 		    
 		<!-- 评论end -->
-		<form class='mt-3'><div class='form-group'><textarea class='form-control' name='conment' placeholder='说两句吧~'></textarea></div> <div class='form-group row'><img src="https://blog.yzmcms.com/api/index/code.html???????css/" class='ml-3' style='height: 40px;'>
-<input type='text' class='col-sm-1 form-control' required name='random'><input type='submit' value='提交' class='btn btn-info ml-1' name=''></div></form>
+		<form class='mt-3'><div class='form-group'><textarea class='form-control usercon'name='conment' placeholder='说两句吧~'></textarea></div> <div class='form-group row'><img src="{{ captcha_src('mini') }}" onclick="this.src='/captcha/mini?'+Math.random()" title="点击图片重新获取验证码" class='ml-3' style='height: 40px;'>
+<input type='text' class='col-sm-1 form-control random' required name='captcha '><input type='button' value='提交' class='btn btn-info ml-1' id='submit' name=''></div>
+    </form>
 		</div>
+
 		</div>
 	    @include('layouts._aside')
 	</div>
 	<!-- 隐藏域 -->
-
+<input type="hidden" id='articleid' name="" value='{{$article->id}}'>
 @endsection
+@section('scripts')
 <script type="text/javascript">
 	$(function(){
-		//获取
+		var articleid = $('#articleid').val()
+		//评论框显示
+        $('.my').on('click','li',function(){
+        	var that = $(this)
+        	$('.pl').remove()
+        	$('.my').each(function(i,e){
+			if(that.data('flag')==0){
+        			that.data('flag',1)
+        			that.parent().parent().append("<form class='pl'><div class='form-group'><textarea class='form-control usercon'  name='conment' placeholder='说两句吧~'' required></textarea></div> <div class='form-group row'><img src='{{ captcha_src('mini') }}'  class='ml-3 img-random' style='height: 40px;'><input type='text' class='col-sm-2 form-control random' required name='captcha'><input type='button' value='提交' class='btn btn-info ml-1 submit' name=''></div></form>")
+        		}else{
+        			that.data('flag',0)
+        			that.parent().next().remove();	
+        		}
+        	})
+        	$('.img-random').click(function(){
+        		this.src="/captcha/mini?'"+Math.random()
+        	})
+        	$('.submit').click(function(){
+        		var parentid = $(this).parent().parent().prev().children().data('parent');
+        		// console.log(parentid)
+        		if(!parentid && parentid)parentid=beifenid;//如果获取不到使用备份id
+
+        		var level = $(this).parent().parent().prev().children().data('level')+1;
+        		var con = htmlEscape($('.usercon').val());
+        		var random = $('.random').val();
+				if(!con){
+					alert('请输入内容');
+					return false;
+				}else if(!random){
+					alert('请输入验证码');
+					return false;
+				}else{
+					var subthat = $(this);
+					sendCon(parentid,level,con,random,subthat)
+				}
+        	})
+        })
+         //主评论提交
+		$('#submit').click(function(){
+			var con = htmlEscape($('.usercon').val());
+			var random = $('.random').val();
+			if(!con){
+					alert('请输入内容');
+					return false;
+				}else if(!random){
+					alert('请输入验证码');
+					return false;
+				}else{
+					$.ajax({
+					headers: {
+			    		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+        			url:"{{url('/comments')}}",
+        			type:'get',
+        			dataType:'json',
+        			data:{
+        				"parentid":0,
+        				"level":1,
+        				"con":con,
+        				"captcha":random,
+        				'articleid':articleid
+        			},
+        			success:function(msg){
+        				if(msg.error){
+        					alert(msg.error);
+        					return false;
+        				}
+			        	//渲染页面
+						var text = $("<div class='showcomment'><div class='small mt-2' style='width:100%;margin-left:0%'><div><img src='https://dss0.baidu.com/73x1bjeh1BF3odCf/it/u=970046986,3090048325&fm=85&s=4C12C519C8913CCA569E5FC2030080A8'><span>#@热心网友</span><time>"+123+"</time><span class='float-right'></span><div class='mentcon'><p>"+con+"</p><br><br><ul class='huifu'><li class='callback' data-flag='0' data-level='1' date-parent='0'  >回复</li></ul></div></div></div></div>");
+						$('.my').append(text);
+        			}
+					})
+			    }
+		})
+		//前台格式化评论
+        	function htmlEscape(text){ 
+			  	return text.replace(/[<>"&]/g, function(match, pos, originalText){
+			    switch(match){
+			    case "<": return "&lt;"; 
+			    case ">":return "&gt;";
+			    case "&":return "&amp;"; 
+			    case "\"":return "&quot;"; 
+			  } 
+			  });
+			}
+        //发送数据到后台
+        function sendCon(parentid,level,con,random,subthat){
+        		$.ajax({
+        			headers: {
+			    		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+        			url:"{{url('/comments')}}",
+        			type:'get',
+        			dataType:'json',
+        			data:{
+        				"parentid":parentid,
+        				"level":level,
+        				"con":con,
+        				"captcha":random,
+        				"articleid":articleid
+        			},
+        			success:function(msg){
+        				if(msg.error){
+        					alert(msg.error);
+        					return false;
+        				}
+        				var text = $("<div class='showcomment'><div class='small mt-2' style='width:"+(100-(level*10)+10)+"%;margin-left:"+(100-(100-(level*10)+10))+"%'><div><img src='https://dss0.baidu.com/73x1bjeh1BF3odCf/it/u=970046986,3090048325&fm=85&s=4C12C519C8913CCA569E5FC2030080A8'><span>#@热心网友</span><time>"+msg.time+"</time><span class='float-right'></span><div class='mentcon'><p>"+con+"</p><br><br><ul class='huifu'><li class='callback' data-flag='0' data-level='"+level+"' date-parent='"+msg.id+"'  >回复</li></ul></div></div></div></div>");
+        				beifenid = msg.id;
+        				subthat.parent().parent().parent().parent().parent().parent().after().append(text);
+        			}
+        		})
+        	}
+        //文章点赞
+        $('.article-zan').one('click',function(){
+        	// $(this).text($(this).next()+1)
+        	var article_zan = parseInt($(this).children().text())
+        	$(this).children().text(article_zan+1)
+        })
 	})
 </script>
+@endsection
+
 </body>
 </html>

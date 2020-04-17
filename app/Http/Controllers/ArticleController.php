@@ -6,6 +6,7 @@ use App\Article;
 use Illuminate\Http\Request;
 use App\Cate;
 use DB;
+use Illuminate\Support\Arr;
 class ArticleController extends Controller
 {
     //归档
@@ -18,21 +19,7 @@ class ArticleController extends Controller
         return view('guidang',compact('articles','dates'));
 
     }
-    public function test()
-    {
-
-    DB::connection('mongodb')       //选择使用mongodb
-              ->collection('users')           //选择使用users集合
-              ->insert([                          //插入数据
-                      'name'  =>  'tom', 
-                      'age'     =>   18
-                  ]);
-
-
-    $res = DB::connection('mongodb')->collection('users')->all();   //查询所有数据
-    dd($res);                                            //打印数据
-
-    }
+  
     /**
      * Display a listing of the resource.
      *
@@ -71,18 +58,25 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Article $article)
-    {
-        // $downid = $id-1;
-        // $upid = $id+1;
-        
-        // $article = Article::selectRaw('*')
-        //                     ->whereRaw("id in($upid,$downid,$id)")
-        //                     ->get();
-        // dd($article);
-       
+    {   
         $uparticle = Article::where('id',$article->id-1)->select('title')->get();
         $downarticle = Article::where('id',$article->id+1)->select('title')->get();
-        return view('content',compact('article','uparticle','downarticle'));
+        //评论展示
+        $data = $article->comment()->get()->toArray();
+        $comment = $this->getSubTree($data , 0 );
+        return view('content',compact('article','uparticle','downarticle','comment'));
+    }
+
+    //对评论递归取出
+    private function getSubTree($data , $id = 0 ) {
+            static $son = array();
+            foreach($data as  $value) {
+                if($value['parent_id'] == $id) {
+                    $son[] = $value;
+                   $this->getSubTree($data , $value['id']);
+                }
+            }
+            return $son;
     }
    
     /**
