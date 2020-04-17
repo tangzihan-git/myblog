@@ -79,6 +79,8 @@ class ArticleController extends Controller
         //评论展示
         $data = $article->comment()->get()->toArray();
         $comment = $this->getSubTree($data , 0 );
+        //访问次数加一
+        $article->increment('visit_num');
         return view('content',compact('article','uparticle','downarticle','comment'));
     }
 
