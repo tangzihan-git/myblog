@@ -28,13 +28,14 @@ trait CacheArticleHelper
 	});
 	}
 	//缓存最新评论
+
 	public function getNewComment()
 	{
 		return Cache::remember($this->new_comment_cache_key,$this->cache_expire_in_seconds,function(){
 		return $this->where('status',1)
 		->join('comments','articles.id','=','comments.article_id')
 		->select('articles.id','title','content','comments.created_at')
-		->where('level',0)
+		->where('level',1)
 		->orderby('comments.created_at','desc')
 		->limit(5)
 		->get();

@@ -43,7 +43,7 @@
 						@if(count($newcomments))
 						@foreach($newcomments as $newcomment)
 						<li><a href="{{route('articles.show',[$newcomment->id])}}">{{$newcomment->title}}</a>
-							<p class='text-secondary'><span class='text-warning'>@四川的网友：</span>{{$newcomment->content}}</p>
+							<p class='text-secondary'><span class='text-warning'>@热心网友：</span>{{$newcomment->content}}</p>
 						</li>
 						@endforeach
 						@endif
