@@ -28,3 +28,8 @@ Route::match(['get', 'post'],'message','CommentController@messages');
 // Route::get()
 
 
+
+//后台主页
+Route::get('zyadmin',function(){
+	return view('admin.index');
+});
