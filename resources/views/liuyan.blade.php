@@ -68,8 +68,13 @@
 									<div class="reply-cont">
 										<p class="username">{{$v->user_name}}</p>
 										<p class="comment-body">{{$v->user_con}}</p>
+										@if($v->status==1)
+										<p class='text-danger mt-2 ml-2'><span class='text-info'>站长回复：</span>{{$v->replay}}</p>
+										@endif
 										<p class="comment-footer">{{$v->created_at}}</p>
 									</div>
+
+									
 								</li>
 								@endforeach
 							</ul>
@@ -94,6 +99,10 @@
 		var submit = $('#submit');
 		submit.click(function(){
 			var inputText = htmlEscape($('.text').val());
+			if(inputText==''){
+				alert('请输入内容') 
+				return false
+			};
 				$.ajax({
         			headers: {
 			    		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

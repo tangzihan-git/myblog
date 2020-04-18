@@ -11,7 +11,14 @@ class CommentController extends Controller
     //
     public function __construct()
     {
-          $this->middleware('captcha',['except'=>['getProvince','messages']]);
+          $this->middleware('captcha',['except'=>['getProvince','messages','index','handle']]);
+    }
+    public function index()
+    {
+        //
+        $data  = Comment::paginate(10);
+        return view('admin.comment',compact('data'));
+
     }
     //存储用户评论
     public function store(Comment $comment ,Request $request)
@@ -33,27 +40,21 @@ class CommentController extends Controller
 
     	}
     }
-    //存储用户留言
-    public function messages(Request $request)
+    //站长回复
+     public function handle(Request $request)
     {
-        if(empty($_POST)){
-            $data = \DB::table('messages')->paginate(10);
-            return view('liuyan',compact('data'));
-        }else{
-            $time = date('Y-m-d H:i:s');
-            \DB::table('messages')->insert([
-                "user_qq"=>133,
-                "user_ip"=>$request->getClientIps()[0],
-                "user_con"=>clean($request->content, 'user_body'),
-                "created_at"=>$time
-            ]);
-            return response()->json([
-                "time"=>$time,
-
-            ]);
+        //删除操作
+        if($request->statudel){
+            Comment::where('id', $request->statudel)->delete();
+        }else if($request->alldel){
+            foreach ($request->ids as $id) {
+                # code...
+                Comment::where('id', $id)->delete();
+            }
         }
-        
-
+        //回复操作
+        Comment::where('id',$request->id)->update(['replay'=>$request->content,'flag'=>1]);
+        return response()->json(['status'=>'1']);
     }
    
    

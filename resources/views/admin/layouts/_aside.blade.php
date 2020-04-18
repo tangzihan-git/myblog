@@ -40,8 +40,8 @@
 				  	 <a  href="#four" type="button" data-toggle="collapse"><span class='icon'></span>&nbsp;评论管理</a>
 				  	<div class='collapse' id='four' data-parent="#mymenu">
 				  		<ul class='mp-0 text-left'>
-				  			<li class='list-group-item son-menu'><a href="./comment.html">评论列表</a></li>
-				  			<li class='list-group-item son-menu'><a href="./lajicomment.html">垃圾评论</a></li>
+				  			<li class='list-group-item son-menu'><a href="{{route('comments.index')}}">评论列表</a></li>
+				  			
 				  		</ul>
 				  	</div>
 				  </li>
@@ -49,8 +49,8 @@
 				  	 <a  href="#five" type="button" data-toggle="collapse"><span class='icon'></span>&nbsp;留言管理</a>
 				  	<div class='collapse' id='five' data-parent="#mymenu">
 				  		<ul class='mp-0 text-left'>
-				  			<li class='list-group-item son-menu'><a href="./liuyan.html">留言列表</a></li>
-				  			<li class='list-group-item son-menu'><a href="./ljly.html">垃圾留言</a></li>
+				  			<li class='list-group-item son-menu'><a href="{{route('messages.index')}}">留言列表</a></li>
+				  			
 				  		</ul>
 				  	</div>
 				  </li>
@@ -79,7 +79,7 @@
 				  	<div class='collapse' id='end' data-parent="#mymenu">
 				  		<ul class='mp-0 text-left'>
 				  			<li class='list-group-item son-menu'><a href="{{url('/zyadmin/webset')}}">网站设置</a></li>
-				  			<li class='list-group-item son-menu'><a href="./friend.html">友情链接</a></li>
+				  			<li class='list-group-item son-menu'><a href="{{url('/zyadmin/friendlink')}}">友情链接</a></li>
 				  			<li class='list-group-item son-menu'><a href="./pingbi.html">屏蔽词</a></li>
 				  			<li class='list-group-item son-menu'><a href="./about.html">关于我</a></li>
 				  		</ul>

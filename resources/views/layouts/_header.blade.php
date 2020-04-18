@@ -1,6 +1,7 @@
 <!-- 头部 -->
-<header style='background: url({{$banner}});background-size:cover;background-position: center center;background-repeat: no-repeat;
-'>  <div class='topbar'> 
+<header style='background: url({{$banner[0]}});background-size:cover;background-position: center center;background-repeat: no-repeat;
+'>  <div class='topbar'>
+	
 		<nav class="navbar navbar-expand-lg navbar-light mr-auto">
 		  <a class="navbar-brand" href="{{url('/')}}">网页标题</a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
