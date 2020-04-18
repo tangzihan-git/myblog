@@ -1,5 +1,5 @@
 <!-- 头部 -->
-<header style='background: url(/front/images/focus.jpg);background-size:cover;background-position: center center;background-repeat: no-repeat;
+<header style='background: url({{$banner}});background-size:cover;background-position: center center;background-repeat: no-repeat;
 '>  <div class='topbar'> 
 		<nav class="navbar navbar-expand-lg navbar-light mr-auto">
 		  <a class="navbar-brand" href="{{url('/')}}">网页标题</a>

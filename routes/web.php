@@ -33,4 +33,5 @@ Route::match(['get', 'post'],'message','CommentController@messages');
 Route::get('zyadmin',function(){
 	return view('admin.index');
 });
-Route::get('zyadmin/webset','AdminController@webset');
+
+Route::match(['get','post'],'zyadmin/webset','AdminController@webset');

@@ -78,7 +78,7 @@
 				  	 <a  href="#end" type="button" data-toggle="collapse"><span class='icon'></span>&nbsp;系统设置</a>
 				  	<div class='collapse' id='end' data-parent="#mymenu">
 				  		<ul class='mp-0 text-left'>
-				  			<li class='list-group-item son-menu'><a href="./websetting.html">网站设置</a></li>
+				  			<li class='list-group-item son-menu'><a href="{{url('/zyadmin/webset')}}">网站设置</a></li>
 				  			<li class='list-group-item son-menu'><a href="./friend.html">友情链接</a></li>
 				  			<li class='list-group-item son-menu'><a href="./pingbi.html">屏蔽词</a></li>
 				  			<li class='list-group-item son-menu'><a href="./about.html">关于我</a></li>
