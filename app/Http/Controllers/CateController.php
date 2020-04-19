@@ -15,6 +15,8 @@ class CateController extends Controller
     public function index()
     {
         //
+        $data = Cate::paginate(10);
+        return view('admin.cate',compact('data'));
     }
 
     /**
@@ -33,9 +35,43 @@ class CateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+   public function add(Request $request)
+    {
+         //添加操作
+        if($request->statuadd){
+            Cate::insert([
+                "cate_name"=>$request->cate_name,
+                "cate_desc"=>$request->cate_desc,
+                "created_at"=>date('Y-m-d :H:i:s',time())
+            ]);
+        }
+        return redirect()->back();
+    }
+
     public function store(Request $request)
     {
-        //
+       
+        //删除操作
+        if($request->statudel){
+            Cate::where('id', $request->statudel)->delete();
+        }else if($request->alldel){
+            foreach ($request->ids as $id) {
+                # code...
+                 Cate::where('id', $id)->delete();
+            }
+        }
+        //更新名称
+        if($request->content){
+            Cate::where('id',$request->id)->update(['cate_name'=>$request->content,"updated_at"=>date('Y-m-d H:i:s')]);
+        
+        }
+        //下架&上架
+        if($request->change){
+            Cate::where('id',$request->id)->update(['cate_status'=>$request->status,"updated_at"=>date('Y-m-d H:i:s')]);
+        
+        }
+        return response()->json(['status'=>'1']);
+        
     }
 
     /**
@@ -67,6 +103,13 @@ class CateController extends Controller
             
         
     }
+    public function updated(Request $request, Cate $cate)
+    {
+        //
+      
+        $cate->where('id',$request->cate_id)->update(['cate_name'=>$request->cate_name,"cate_desc"=>$request->cate_desc]);
+        return redirect()->back();
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -86,10 +129,7 @@ class CateController extends Controller
      * @param  \App\Cate  $cate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cate $cate)
-    {
-        //
-    }
+    
 
     /**
      * Remove the specified resource from storage.

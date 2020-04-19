@@ -24,10 +24,10 @@ $(function(){
 
 
 		}
-		$('.tag-text').each(function(i,e){
-			var color = randColor();
-			e.style.backgroundColor='rgb('+color.r+','+color.g+','+color.b+')';
-		})
+		// $('.tag-text').each(function(i,e){
+		// 	var color = randColor();
+		// 	e.style.backgroundColor='rgb('+color.r+','+color.g+','+color.b+')';
+		// })
 		//日期计算
 		
         var nday = $('#day');

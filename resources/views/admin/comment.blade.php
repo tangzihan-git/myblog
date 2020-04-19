@@ -135,9 +135,6 @@
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 <script type="text/javascript" src="/admin/js/calendar.min.js"></script>
 <script type="text/javascript">
-
-
-
 	var allcheck = $('#allcheck');
 	var alldel = $('#alldel');
 	var sure = $('.sure');

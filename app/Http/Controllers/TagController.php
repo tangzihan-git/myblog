@@ -17,8 +17,8 @@ class TagController extends Controller
     public function index()
     {
         //
-        $data = Tag::all();
-        return view('admin.tags',compact('tags'));
+        $data = Tag::paginate(10);
+        return view('admin.tags',compact('data'));
     }
 
     /**
@@ -37,9 +37,47 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function add(Request $request)
+    {
+         //添加操作
+        if($request->statuadd){
+            Tag::insert([
+                "tag_name"=>$request->tag_name,
+                "tag_color"=>$request->tag_color,
+                "created_at"=>date('Y-m-d :H:i:s',time())
+            ]);
+        }
+        return redirect()->back();
+    }
+
     public function store(Request $request)
     {
-        //
+       
+        //删除操作
+        if($request->statudel){
+            Tag::where('id', $request->statudel)->delete();
+        }else if($request->alldel){
+            foreach ($request->ids as $id) {
+                # code...
+                 Tag::where('id', $id)->delete();
+            }
+        }
+        //更新颜色
+         if($request->color){
+             Tag::where('id',$request->id)->update(['tag_color'=>$request->color,"updated_at"=>date('Y-m-d H:i:s')]);
+        }//更新名称
+        if($request->content){
+            Tag::where('id',$request->id)->update(['tag_name'=>$request->content,"updated_at"=>date('Y-m-d H:i:s')]);
+        
+        }
+        //下架&上架
+        if($request->change){
+            Tag::where('id',$request->id)->update(['tag_status'=>$request->status,"updated_at"=>date('Y-m-d H:i:s')]);
+        
+        }
+        return response()->json(['status'=>'1']);
+        
+
     }
 
     /**

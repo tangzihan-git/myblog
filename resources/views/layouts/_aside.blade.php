@@ -25,8 +25,9 @@
 			    <h5 class='h5 '>热门标签</h5>
 			</div>
 			<div class='tag-con'>
+	
 				@foreach($tags as $tag)
-				<a href="{{route('tags.show',[$tag->id])}}" class='tag-text'>{{$tag->tag_name}}</a>
+				<a href="{{route('tags.show',[$tag->id])}}" class='tag-text' style='background: {{$tag->tag_color}}'>{{$tag->tag_name}}</a>
 				@endforeach
 			</div>		
 		</div>

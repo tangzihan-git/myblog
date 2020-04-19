@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Article;
 use Illuminate\Http\Request;
 use App\Cate;
+use App\Tag;
+use App\Handle\ImageUpload;
 use DB;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cookie;
@@ -40,9 +42,21 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Cate $cate)
+    public function index(Request $request)
     {
-        // dump($cate::find(1)->article);/
+         $cates = Cate::all();
+       
+        $catename = $request->catename?:1;
+        $startdate = $request->startdate?:'2020-1-1';
+        $enddate = $request->enddate?:'2060-12-31';
+        $title = $request->search?:'';
+        $data = Article::where('cate_id',$catename)
+                        ->where('title','like','%'.$title.'%')
+                        ->wherebetween('articles.created_at',[$startdate,$enddate])
+                        ->paginate(10);
+
+        
+        return view('admin.article',compact('data','cates','catename','startdate','enddate','title'));
     }
 
     /**
@@ -53,6 +67,9 @@ class ArticleController extends Controller
     public function create()
     {
         //
+        $cates = Cate::get();
+        $tags = Tag::get();
+        return view('admin.articlemand',compact('cates','tags'));
     }
 
     /**
@@ -64,6 +81,13 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         //
+        dump($request);
+    }
+    //文章图片上传
+    public function upimg(Request $request)
+    {
+        $path = ImageUpload::save($request->articleimg,'article_con','article_con','1024')['path'];
+        return response()->json(['path'=>$path]);
     }
 
     /**
@@ -117,6 +141,11 @@ class ArticleController extends Controller
     public function update(Request $request, Article $article)
     {
         //
+        if($request->change){
+            $article->status=$request->status;
+            $article->save();
+         
+        }
     }
 
     /**
@@ -128,5 +157,18 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         //
+        $article->delete();
+    }
+
+    public function desmany(Request $request){
+        if($request->alldel){
+            // foreach ($request->ids as $id) {
+            //     # code...
+            //     Article::where('id', $id)->delete();
+            // }
+            Article::destroy($request->ids);
+
+            return response()->json(['123'=>$request->ids]);
+
     }
 }

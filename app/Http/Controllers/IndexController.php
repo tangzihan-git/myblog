@@ -24,8 +24,8 @@ class IndexController extends Controller
     {
         return Cache::remember('friendlink','86400',function(){
             return DB::table('friend_links')->where('web_status',1)
-                                        ->select('web_name','web_link')
-                                        ->orderby('web_link','asc')
+                                        ->select('web_name','web_link','web_color')
+                                        ->orderby('web_order','asc')
                                         ->get();
         });
     }

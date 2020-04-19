@@ -15,8 +15,14 @@ Route::get('/', 'IndexController@index');
 Route::get('files','ArticleController@files');
 Route::get('test','CommentController@getProvince');
 Route::get('article/zan','ArticleController@zan');
+Route::post('articles/desmany','ArticleController@desmany')->name('articles.desmany');
+Route::post('articles/upimg','ArticleController@upimg')->name('articles.upimg');
 Route::resource('articles','ArticleController');
+Route::post('tag/add','TagController@add')->name('tags.add');
 Route::resource('tags','TagController');
+
+Route::post('cates/add','CateController@add')->name('cates.add');
+Route::post('cates/updated','CateController@updated')->name('cates.updated');
 Route::resource('cates','CateController');
 
 //评论
@@ -42,3 +48,4 @@ Route::get('zyadmin',function(){
 Route::match(['get','post'],'zyadmin/webset','AdminController@webset');
 //友情链接
 Route::match(['get','post'],'zyadmin/friendlink','AdminController@friend');
+Route::post('zyadmin/link','AdminController@handle')->name('link.handle');

@@ -12,6 +12,7 @@
         "barryvdh/laravel-debugbar": "^3.2",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "~6.3",
+        "intervention/image": "^2.5",
         "jenssegers/mongodb": "^3.6",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",

@@ -77,7 +77,7 @@
 				<div class='friend-link'>
 					@if(count($friendLinks))
 					@foreach($friendLinks as $friend)
-					<a href="{{$friend->web_link}}" class=' tag-text'>
+					<a href="{{$friend->web_link}}" class=' tag-text' style='background: {{$friend->web_color}}'>
 						{{$friend->web_name}}
 					</a>
 					@endforeach

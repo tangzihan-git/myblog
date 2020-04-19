@@ -4,13 +4,18 @@
 				  	 <a  href="./index.html" type="button"><span class='icon'></span>&nbsp;我的桌面</a><span></span></li>
 
 				  <li class="list-group-item">
-				  	 <a  href="#one" type="button" data-toggle="collapse"><span class='icon'></span>&nbsp;栏目管理</a>
+				  	 <a  href="#one" type="button" data-toggle="collapse"><span class='icon'></span>&nbsp;分类管理</a>
 				  	<div class='collapse' id='one' data-parent="#mymenu">
 				  		<ul class='mp-0 text-left'>
-				  			<li class='list-group-item son-menu'><a href="cate_top.html">导航栏目</a></li>
-				  			<li class='list-group-item son-menu'><a href="#">侧边栏目</a></li>
-				  			<li class='list-group-item son-menu'><a href="#">其他栏目</a></li>
-		
+				  			<li class='list-group-item son-menu'><a href="{{route('cates.index')}}">分类管理</a></li>
+				  		</ul>
+				  	</div>
+				  </li>
+				   <li class="list-group-item">
+				  	 <a  href="#menu" type="button" data-toggle="collapse"><span class='icon'></span>&nbsp;菜单管理</a>
+				  	<div class='collapse' id='menu' data-parent="#mymenu">
+				  		<ul class='mp-0 text-left'>
+				  			<li class='list-group-item son-menu'><a href="">菜单管理</a></li>
 				  		</ul>
 				  	</div>
 				  </li>
@@ -19,7 +24,7 @@
 				  	 <!-- <span class='float-right icon'></span> -->
 				  	<div class='collapse' id='two' data-parent="#mymenu">
 				  		<ul class='mp-0 text-left'>
-				  			<li class='list-group-item son-menu'><a href="./article.html">文章列表</a></li>
+				  			<li class='list-group-item son-menu'><a href="{{route('articles.index')}}">文章列表</a></li>
 				  			<li class='list-group-item son-menu'><a href="./articlexiajia.html">下架列表</a></li>
 				  		</ul>
 				  	</div>
