@@ -11,7 +11,7 @@ class NavComposer
      */
     public function compose(View $view)
     {
-        $datas = Cate::where('cate_status',1)->orderby('cate_order','asc')->get();
+        $datas = DB::table('menus')->where('menu_status',1)->orderby('menu_order','asc')->get();
         $view->with('datas',$datas);
     }
 }

@@ -1,4 +1,7 @@
 @extends('admin.layouts.app')
+@section('styles')
+<link type="text/css" rel="stylesheet" href="/admin/css/calendar.min.css" />
+@endsection
 @section('content')
 	<!-- 导航 -->
 		<div class='row'>
@@ -7,20 +10,26 @@
 		<div class='col-md-10 '>
 		<div class='card mt-3'>
 			<div class='card-body'>
+
 				<div class='search '>
-					<form class='form-inline row mb-2'>
+					<form  action="{{route('comments.index')}}" method='get' class='form-inline row mb-2'>
 						<div class='form-group'>
+
 							
-							<select class='form-control'>
-								<option value='0'>栏目</option>
-								<option>前端</option>
-								<option>随记</option>
+							<select class='form-control' name='catename'>
+								
+								@foreach($cates as $cate)
+								<option value="{{$cate->id}}" {{$catename==$cate->id?'selected':''}}>{{$cate->cate_name}}</option>
+
+								@endforeach
 							</select>
+
 							<label for='date'>日期范围：</label>
-							<input type="text" class='col-md-2 form-control' name="start">
-							  - <input type="text" class='col-md-2 form-control' name="end">&nbsp;
-							  <input type="text" class='col-md-3 form-control' name="search">&nbsp;
-							<input type="button" class='btn btn-success form-control' value='搜索' name="">
+							
+							<input type="text" class='col-md-2 form-control date_input' calendar="YYYY-MM-DD" / name="startdate" placeholder="开始日期" value="{{$startdate}}">  
+							  - <input type="text" class='col-md-2 form-control date_input' calendar="YYYY-MM-DD" / name="enddate" placeholder="结束日期" value="{{$enddate}}">&nbsp;
+							  <input type="text" class='col-md-3 form-control' name="search" placeholder="指定文章评论" value="{{$title}}">&nbsp;
+							<input type="submit" class='btn btn-success form-control' value='搜索' name="">
 						</div>
 					</form>
 				</div>
@@ -37,17 +46,18 @@
 				      <th scope="col">评论内容</th>
 				      <th scope='col'>评论类型</th>
 				      <th scope="col">评论状态</th>
-				      <th scope="col">评论时间</th>
+				      <th scope="col">操作</th>
 				    </tr>
 				  </thead>
 				  <tbody>
+			
 				  	@foreach($data as $v)
 				    <tr>
 				     <td><input type="checkbox" name="checkbox" data-id="{{$v->id}}"></td>
 				     <td scope="row">{{$v->id}}</td>
 				     <td>{{$v->user_ip}}</td>
 					 <td  class='text-wrap w-25' >
-						<a href="{{route('articles.show',[$v->article->id])}}">{{$v->article->title}}</a>
+						<a href="{{route('articles.show',[$v->article_id])}}">{{$v->title}}</a>
 				     </td>
 				     <td data-toggle="tooltip" data-placement="top" title='{{$v->content}}' class='usercon text-wrap w-25'>{{$v->content}}</td>
 				     <td data-toggle="tooltip" data-placement="top" class='' title='父级id{{$v->parent_id}}'>{{$v->level}}级评论</td>
@@ -122,7 +132,12 @@
 	<!-- 左边菜单end -->
 	
 @section('scripts')
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="/admin/js/calendar.min.js"></script>
 <script type="text/javascript">
+
+
+
 	var allcheck = $('#allcheck');
 	var alldel = $('#alldel');
 	var sure = $('.sure');
@@ -224,6 +239,7 @@
     })
 
      $('[data-toggle="tooltip"]').tooltip()
+    
 </script>
 @endsection
 @endsection

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Comment;
-
+use App\Cate;
 
 class CommentController extends Controller
 {
@@ -13,11 +13,26 @@ class CommentController extends Controller
     {
           $this->middleware('captcha',['except'=>['getProvince','messages','index','handle']]);
     }
-    public function index()
+    public function index(Request $request)
     {
         //
-        $data  = Comment::paginate(10);
-        return view('admin.comment',compact('data'));
+        $cates = Cate::all();
+       
+        $catename = $request->catename?:1;
+        $startdate = $request->startdate?:'2020-1-1';
+        $enddate = $request->enddate?:'2060-12-31';
+        $title = $request->search?:'';
+        
+            $data =\DB::table('comments')
+                        ->join('articles','article_id','=','articles.id')
+                        ->where('cate_id',$catename)
+                        ->wherebetween('comments.created_at',[$startdate,$enddate])
+                        ->where('title','like','%'.$title.'%')
+                        ->select('articles.id','title','articles.title','comments.*')
+                        ->paginate(10);
+
+        
+        return view('admin.comment',compact('data','cates','catename','startdate','enddate','title'));
 
     }
     //存储用户评论

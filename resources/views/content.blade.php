@@ -70,6 +70,9 @@
 					        </span>
 					        <div class='mentcon'>
 					        <p>{{$comments['content']}}</p>
+					        @if($comments['flag']==1)
+					        <p class='text-danger'><span class='text-info'>站长回复：</span>{{$comments['replay']}}</p>
+					        @endif
 					        <br><br>
 					        <ul class='huifu'>
 					        	<li class="callback" data-flag='0' data-level='{{$comments['level']}}' data-parent='{{$comments['id']}}' >回复</li>
@@ -192,7 +195,7 @@
 			    		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					},
         			url:"{{url('/comments')}}",
-        			type:'post',
+        			type:'get',
         			dataType:'json',
         			data:{
         				"parentid":parentid,

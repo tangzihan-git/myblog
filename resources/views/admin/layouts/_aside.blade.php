@@ -28,7 +28,7 @@
 				  	 <a  href="#three" type="button" data-toggle='collapse' ><span class='icon'></span>&nbsp;标签管理</a>
 				  	 <div class='collapse' id='three' data-parent='#mymenu'>
 				  	 	<ul class='mp-0 text-left'>
-				  	 		<li class='list-group-item son-menu'><a href="./tags.html">标签管理</a></li>
+				  	 		<li class='list-group-item son-menu'><a href="{{route('tags.index')}}">标签管理</a></li>
 
 				  	 	</ul>
 				  	 </div>

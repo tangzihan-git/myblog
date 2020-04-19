@@ -27,6 +27,8 @@ Route::match(['get','post'],'comments/handle','CommentController@handle')->name(
 //留言
 Route::match(['get', 'post'],'message','MessagesController@messages')->middleware('throttle:5,1');
 Route::resource('messages','MessagesController');
+//标签
+
 //普通用户登录
 // Route::get()
 
