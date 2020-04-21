@@ -4,6 +4,7 @@
 			<span class='navbar-toggler-icon'></span>
 		</button>
 		<div class='collapse navbar-collapse' id='#mynav'>
+
 			<ul class='navbar-nav mr-auto'>
 				<li class='nav-item'>
 					<div class='dropdown'>
@@ -19,17 +20,23 @@
 				</li>
 			</ul>
 			<ul class='navbar-nav '>
+				@auth
 				<li class='nav-item'>
 					<div class='dropdown'>
-					<a href="#" data-toggle='dropdown'  class='dropdown-toggle nav-link f-15'>admin</a>
+					<a href="javascript:;" data-toggle='dropdown'  class='dropdown-toggle  nav-link f-15'>
+						<span class='text-info'>{{Auth::user()->name}}</span></a>
 						<div class='dropdown-menu'>
-							<a href="#" class='dropdown-item f-15'>个人中心</a>
-							<a href="#" class='dropdown-item f-15'>切换账户</a>
-							<a href="#" class='btn btn-danger f-15'>退出登录</a>
+							<a href="javascript:;" class='dropdown-item f-15'>个人中心</a>
+							<a href="javascript:;" class='dropdown-item f-15'>切换账户</a>
+							<form method="post" action="{{route('logout')}}">
+							@csrf	
+								<input type="submit" class='btn btn-danger f-15' value="退出登录">
+							</form>
+							
 						</div>
 					</div>
-					
 				</li>
+				@endauth
 				<li class='nav-item'>
 					<div class='dropdown'>
 					<a href="#" data-toggle='dropdown'  class='dropdown-toggle nav-link f-15'>皮肤</a>
@@ -45,3 +52,4 @@
 			</ul>
 		</div>
 	</nav>
+	

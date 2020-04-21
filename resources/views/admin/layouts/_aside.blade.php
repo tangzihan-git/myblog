@@ -1,7 +1,7 @@
 	<div class='col-md-2 mp-0'>
 				<ul class="list-group " id='mymenu'>
 				  <li class="list-group-item">
-				  	 <a  href="./index.html" type="button"><span class='icon'></span>&nbsp;我的桌面</a><span></span></li>
+				  	 <a  href="{{url('/zyadmin')}}" type="button"><span class='icon'></span>&nbsp;我的桌面</a><span></span></li>
 
 				  <li class="list-group-item">
 				  	 <a  href="#one" type="button" data-toggle="collapse"><span class='icon'></span>&nbsp;分类管理</a>
@@ -15,7 +15,7 @@
 				  	 <a  href="#menu" type="button" data-toggle="collapse"><span class='icon'></span>&nbsp;菜单管理</a>
 				  	<div class='collapse' id='menu' data-parent="#mymenu">
 				  		<ul class='mp-0 text-left'>
-				  			<li class='list-group-item son-menu'><a href="">菜单管理</a></li>
+				  			<li class='list-group-item son-menu'><a href="javascript:;">菜单管理</a></li>
 				  		</ul>
 				  	</div>
 				  </li>
@@ -25,7 +25,7 @@
 				  	<div class='collapse' id='two' data-parent="#mymenu">
 				  		<ul class='mp-0 text-left'>
 				  			<li class='list-group-item son-menu'><a href="{{route('articles.index')}}">文章列表</a></li>
-				  			<li class='list-group-item son-menu'><a href="./articlexiajia.html">下架列表</a></li>
+				  			<li class='list-group-item son-menu'><a href="javascript:;">下架列表</a></li>
 				  		</ul>
 				  	</div>
 				  </li>

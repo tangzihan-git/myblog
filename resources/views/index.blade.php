@@ -42,7 +42,7 @@
 			</div>
 			<!-- 站长推荐end -->
 			<!-- 最新发布 -->
-            <div class='zxfb'>
+            <div class='zxfb overflow-hidden'>
             	<div class='article-header'>
 					<h5 class='h5'>最新发布</h5>
 				</div>
@@ -51,7 +51,7 @@
             		@foreach($newArticles as $newArticle)
 				    <li class="media">
                         <div class='media-header'>
-                        	 <img src="{{$newArticle->img}}"  height='150' width='250' class="mr-3" alt="...">
+                        	 <img src="{{$newArticle->img}}"   height='150' width='250' class="mr-3 d-none d-sm-block" alt="...">
                         	<div class='tags' style='width:97%'>
                         		<span><span class='text-warning'>&nbsp;</span>{!! $newArticle->cate_name !!}</span>
                         		<time><span class='text-primary'> </span>{!! $newArticle->created_at !!}</time>

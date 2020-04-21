@@ -46,11 +46,11 @@
 					<div class="wrap">
 						<div class="comment">
 							<div class="head-face">
-								<p><a href="#" class='btn btn-info'>登录</a></p>
+								<p><a href="javascript:;" class='btn btn-info'>登录</a></p>
 							</div>
 							<div class="content">
 								<div class="cont-box">
-									<textarea class="text" id='messages' placeholder="<----[笑cry]登录QQ后才能发表留言哦~"></textarea>
+									<textarea class="text" id='messages' placeholder="<----[笑cry]由于腾讯审核较慢目前留言功能正常使用不需登录"></textarea>
 								</div>
 								<div class="tools-box">
 									<div class="operator-box-btn"><span class="face-icon"  >☺</span></div>
@@ -95,7 +95,6 @@
 <script type="text/javascript">
      //留言版
 		// 绑定表情
-
 		var submit = $('#submit');
 		submit.click(function(){
 			var inputText = htmlEscape($('.text').val());
@@ -128,16 +127,14 @@
 		})
 		$('.face-icon').SinaEmotion($('.text'));
 		// 测试本地解析
-		
-		
 		var html;
 		function reply(content){
 			html  = '<li>';
 			html += '<div class="head-face">';
-			html += '<img src="images/1.jpg" / >';
+			html += '<img src="" / >';
 			html += '</div>';
 			html += '<div class="reply-cont">';
-			html += '<p class="username">小小红色飞机</p>';
+			html += '<p class="username">热心网友</p>';
 			html += '<p class="comment-body">'+content+'</p>';
 			html += '<p class="comment-footer">2016年10月5日</p>';
 			html += '</div>';

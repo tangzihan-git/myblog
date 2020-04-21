@@ -1,25 +1,31 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Article;
 use Illuminate\Http\Request;
 use App\Cate;
 use App\Tag;
 use App\Handle\ImageUpload;
 use DB;
+use Cache;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Arr;
+use  Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
+use Carbon\Carbon;
 class ArticleController extends Controller
 {
+    
+     public function __construct()
+     {
+        $this->middleware('auth',['except'=>['zan','index','show','getSubTree','files']]);
+        $this->middleware('visit',['only'=>'show']);
+     }
     //归档
-    public function files()
+    public function files(Article $article)
     {
-      
-        $dates = ['2020-04'];      
-        $articles=DB::table('articles')->select('id','title','created_at')->where('status',1)->limit(10)->get();
-       
-        return view('guidang',compact('articles','dates'));
+        $newdata = $article->getAllfiles();
+        asort($newdata);
+        return view('guidang',compact('newdata'));
 
     }
     //点赞
@@ -27,14 +33,15 @@ class ArticleController extends Controller
     {
         $flag=1;
         if($request->code){
-            $article->find($request->articleid)->increment('zan');
             //点赞存储文章id
             $cookie = cookie('article', $request->articleid, 60);
             $value = Cookie::get('article');
             if($value==$request->articleid)$flag=0;
+            if($flag){
+                $article->find($request->articleid)->increment('zan');
+            }
+            
             return response()->json(['status'=>$flag,'value'=>$value])->cookie($cookie);
-
-
         }
     }
     /**
@@ -44,8 +51,7 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-         $cates = Cate::all();
-       
+        $cates = Cate::all();
         $catename = $request->catename?:1;
         $startdate = $request->startdate?:'2020-1-1';
         $enddate = $request->enddate?:'2060-12-31';
@@ -53,6 +59,7 @@ class ArticleController extends Controller
         $data = Article::where('cate_id',$catename)
                         ->where('title','like','%'.$title.'%')
                         ->wherebetween('articles.created_at',[$startdate,$enddate])
+                        ->with(['cate','user','tag'])
                         ->paginate(10);
 
         
@@ -64,12 +71,12 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Article $article)
     {
         //
         $cates = Cate::get();
         $tags = Tag::get();
-        return view('admin.articlemand',compact('cates','tags'));
+        return view('admin.articlemand',compact('cates','tags','article'));
     }
 
     /**
@@ -78,16 +85,52 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request ,Article $article ,Tag $tag)
     {
         //
-        dump($request);
+            // // 1.封面图上传
+            $img='';
+            if($request->article_pic)$img = ImageUpload::save($request->article_pic,'article_img','article_img','250')['path'];
+            //2.文章存储
+            //执行事务
+            DB::transaction(function() use($request,$article,$tag,$img){
+                $article->title = $request->article_title;
+                $article->body = $request->article_con;
+                $article->cate_id = $request->article_cate;
+                $article->desc = $request->article_part;
+                $article->allow_com = $request->comment;
+                $article->reco = $request->tuijian;
+                $article->img = $img?:'';
+                $article->user_id = \Auth::id();
+                $article->save();
+                //如果有自定义标签
+                $tags = $request->article_tag?:[];
+                if($request->article_self_tag){
+                    $strs = explode(",",$request->article_self_tag);
+                    foreach ($strs as $value) {
+                        //将标签添加到标签表
+                        if($res = $tag->where('tag_name',$value)->get()->toArray()){
+                            // dump($res);
+                            $tags[] = $res[0]['id'];//如果自定义标签重复 省去插入标签操作 并将第一个重复的标签作为文章的标签
+                        }else{
+                            $tagid = $tag->insertGetId(["tag_name"=>$value,"tag_color"=>randomcolor(),"created_at"=>date('Y-m-d H:i:s',time())]);
+                            $tags[] = $tagid;
+                        }        
+                    }
+                }
+       
+                //3.插入文章标签分类（中间表）
+                foreach ($tags as $value) {
+                    \DB::table('tag_article')->insert(["tag_id"=>$value,"article_id"=>$article->id,"created_at"=>date('Y-m-d H:i:s',time())]);
+                }
+            });
+            return redirect()->to(route('articles.show',$article->id));
     }
     //文章图片上传
     public function upimg(Request $request)
     {
         $path = ImageUpload::save($request->articleimg,'article_con','article_con','1024')['path'];
-        return response()->json(['path'=>$path]);
+        return $path;
     }
 
     /**
@@ -98,14 +141,13 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {   
-        $uparticle = Article::where('id',$article->id-1)->select('title')->get();
-        $downarticle = Article::where('id',$article->id+1)->select('title')->get();
+        $article->recordVisit($article->id);
+        // dump($article->id);
+        $updownarticle = Article::whereIn('id',[$article->id-1,$article->id+1])->select('id','title')->get();
         //评论展示
-        $data = $article->comment()->get()->toArray();
+        $data = $article->comment()->orderby('created_at','asc')->get()->toArray();
         $comment = $this->getSubTree($data , 0 );
-        //访问次数加一
-        $article->increment('visit_num');
-        return view('content',compact('article','uparticle','downarticle','comment'));
+        return view('content',compact('article','updownarticle','comment'));
     }
 
     //对评论递归取出
@@ -129,6 +171,9 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         //
+        $cates = Cate::get();
+        $tags = Tag::get();
+        return view('admin.articlemand',compact('cates','tags','article'));
     }
 
     /**
@@ -138,13 +183,52 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function updated(Request $request, Article $article ,Tag $tag)
     {
-        //
+        //上架与下架
         if($request->change){
             $article->status=$request->status;
             $article->save();
          
+        }else{
+            // // 1.封面图上传
+            $img='';
+            if($request->article_pic)$img = ImageUpload::save($request->article_pic,'article_img','article_img','250')['path'];
+            //2.文章存储
+            //执行事务
+            DB::transaction(function() use($request,$article,$tag,$img){
+                $article->title = $request->article_title;
+                $article->body = $request->article_con;
+                $article->cate_id = $request->article_cate;
+                $article->desc = $request->article_part;
+                $article->allow_com = $request->comment;
+                $article->reco = $request->tuijian;
+                $article->img = $img?:'';
+                $article->user_id = \Auth::id();
+                $article->save();
+                //如果有自定义标签
+                $tags = $request->article_tag?:[];
+                if($request->article_self_tag){
+                    $strs = explode(",",$request->article_self_tag);
+                    foreach ($strs as $value) {
+                        //将标签添加到标签表
+                        if($res = $tag->where('tag_name',$value)->get()->toArray()){
+                            // dump($res);
+                            $tags[] = $res[0]['id'];//如果自定义标签重复 省去插入标签操作 并将第一个重复的标签作为文章的标签
+                        }else{
+                            $tagid = $tag->insertGetId(["tag_name"=>$value,"tag_color"=>randomcolor(),"created_at"=>date('Y-m-d H:i:s',time())]);
+                            $tags[] = $tagid;
+                        }        
+                    }
+                }
+       
+                //3.插入文章标签分类（中间表）
+                foreach ($tags as $value) {
+                    \DB::table('tag_article')->insert(["tag_id"=>$value,"article_id"=>$article->id,"created_at"=>date('Y-m-d H:i:s',time())]);
+                }
+            });
+             return redirect()->to(route('articles.show',$article->id));
+
         }
     }
 
@@ -170,5 +254,7 @@ class ArticleController extends Controller
 
             return response()->json(['123'=>$request->ids]);
 
+        }
     }
+      
 }

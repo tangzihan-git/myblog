@@ -11,6 +11,10 @@ class MessagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+     {
+        $this->middleware('auth',['except'=>['index','messages','store']]);
+     }
     public function index()
     {
         //
@@ -39,7 +43,7 @@ class MessagesController extends Controller
             \DB::table('messages')->insert([
                 "user_qq"=>133,
                 "user_ip"=>$request->getClientIps()[0],
-                "user_con"=>clean($request->content, 'user_body'),
+                "user_con"=>make_excerpt($request->content,100),
                 "created_at"=>$time
             ]);
             return response()->json([

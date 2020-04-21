@@ -23,10 +23,6 @@
 							  <div class="card-body">
 							    <span class='icon-size'></span>
 							    <time class='card-text h1'>45</time>
-
-						
-
-							    
 							  </div>
 					        </div>
 						</div>
@@ -36,8 +32,6 @@
 							  <div class="card-body">
 							    <span class='icon-size text-warning'></span>
 							    <time class='card-text h1'>999</time>
-						
-							    
 							  </div>
 					        </div>
 						</div>
@@ -47,13 +41,11 @@
 							  <div class="card-body">
 							    <!-- <h5 class="card-title"></h5> -->
 							    <span class='icon-size'></span>
-							    <time class='card-text h1'>4.11</time>
+							    <time class='card-text h1'>{{date('m.d',time())}}</time>
 							  </div>
 					        </div>
 						</div>
-				
 		    		</div>
-		    	
 		    		</div>
 		    		<div class='row'>
 		    			<div class='col-md-6'>
@@ -101,9 +93,6 @@
 										  </div>
 									    </div>
 								  </div>
-								  
-
-
 							</div>
 							 <div class="media">
 								  <img src="../images/-741352d2e87aa1a4.jpg" width='80' class="mr-3 media-img" alt="...">
@@ -137,7 +126,6 @@
 									<div class="progress"><div class="progress-bar progress-bar-striped bg-info" style="width: 45%"></div></div>
 									<span id='sj'>数据使用率29%</span>
 									<div class="progress"><div class="progress-bar progress-bar-striped bg-warning" style="width: 29%"></div></div>
-
 							    </div>
 				        </div>
 		    	    </div>

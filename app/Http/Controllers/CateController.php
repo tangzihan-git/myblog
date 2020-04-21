@@ -12,6 +12,10 @@ class CateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth',['except'=>['index','show']]);
+     }
     public function index()
     {
         //
@@ -85,15 +89,15 @@ class CateController extends Controller
       
       switch($cate->cate_name){
         case '心情随笔':
-            $cate=$cate->article()->paginate(15);
+            $cate=$cate->article()->with(['user','cate'])->paginate(15);
             return view('shuibi',compact('cate'));
         break;
         case '美文':
-            $cate=$cate->article()->paginate(10);
+            $cate=$cate->article()->with(['user','cate'])->paginate(10);
             return view('beau',compact('cate'));
         break;
         default:
-            $cate=$cate->article()->paginate(10);
+            $cate=$cate->article()->with(['user','cate'])->paginate(10);
             return view('list',compact('cate'));
         break;
 

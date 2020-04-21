@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'captcha'=>\App\Http\Middleware\CheckCaptcha::class,
+        'visit'=>\App\Http\Middleware\ArticleVisit::class,
     ];
 
     /**

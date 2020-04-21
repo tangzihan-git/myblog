@@ -29,6 +29,7 @@
 				@foreach($tags as $tag)
 				<a href="{{route('tags.show',[$tag->id])}}" class='tag-text' style='background: {{$tag->tag_color}}'>{{$tag->tag_name}}</a>
 				@endforeach
+		
 			</div>		
 		</div>
 		<!-- 标签云end -->

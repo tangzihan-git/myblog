@@ -4,11 +4,19 @@ namespace App\Http\Controllers;
 use App\Handle\WebSet;
 use Illuminate\Http\Request;
 use App\Handle\ImageUpload;
+
+
 use Cache;
 use \DB;
+
 class AdminController extends Controller
 {
     //
+     public function __construct()
+     {
+        $this->middleware('auth');
+     }
+
     public function webset(Request $request)
     {
     	if(empty($_POST)){
@@ -75,4 +83,5 @@ class AdminController extends Controller
         
 
     }
+  
 }

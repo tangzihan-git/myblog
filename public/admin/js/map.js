@@ -152,7 +152,7 @@
         "PeopleCount": 35
     }, {
         "provinceName": "四川",
-        "provinceKey": 510000,
+     
        
         "PeopleCount": 127
     }, {

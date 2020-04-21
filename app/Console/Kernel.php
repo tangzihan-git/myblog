@@ -31,6 +31,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('blog:cal-hot-articles')->dailyAt('3:00');
         //每天0点生成评论数量
         $schedule->command('blog:count-comment')->dailyAt('00:00');
+        //每天1点生成归档数据
+        $schedule->command('blog:get-count-files-article')->dailyAt('01:00');
+        //统计阅读数量
+        $schedule->command('blog:sync-article-visit')->dailyAt('02:00');
     }
 
     /**

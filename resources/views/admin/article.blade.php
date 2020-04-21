@@ -78,7 +78,7 @@
 				      	 <td class='f-13'>
 				     	<a href="javascript:;" class='text-secondary huifu'  data-id='{{$v->id}}' title='恢复'></a>&nbsp;
 				      	<a href="javascript:;"  class='text-secondary singledel'data-toggle="modal"  data-target="#del-modal" title='删除'  data-id='{{$v->id}}'></a>
-				      	&nbsp;<a href="javascript:;" class='text-secondary reply' data-toggle="modal"  data-target="#reply-modal" data-id='{{$v->id}}' title='编辑'></a></td>
+				      	&nbsp;<a href="{{route('articles.edit',[$v->id])}}" class='text-secondary reply' data-id='{{$v->id}}' title='编辑'></a></td>
 				    
 				    </tr>
 				    @endforeach
@@ -215,8 +215,8 @@
         		headers: {
 			    		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					},
-        			url:"/articles/"+id,
-        			type:'PATCH',
+        			url:"/articles/updated/"+id,
+        			type:'post',
         			dataType:'json',
         			data:{
         				"change":1,

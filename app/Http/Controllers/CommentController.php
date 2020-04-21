@@ -23,17 +23,14 @@ class CommentController extends Controller
         $enddate = $request->enddate?:'2060-12-31';
         $title = $request->search?:'';
         
-            $data =\DB::table('comments')
-                        ->join('articles','article_id','=','articles.id')
-                        ->where('cate_id',$catename)
-                        ->wherebetween('comments.created_at',[$startdate,$enddate])
-                        ->where('title','like','%'.$title.'%')
-                        ->select('articles.id','title','articles.title','comments.*')
-                        ->paginate(10);
-
-        
+        $data =\DB::table('comments')
+                ->join('articles','article_id','=','articles.id')
+                ->where('cate_id',$catename)
+                ->wherebetween('comments.created_at',[$startdate,$enddate])
+                ->where('title','like','%'.$title.'%')
+                ->select('articles.id','title','articles.title','comments.*')
+                ->paginate(10);
         return view('admin.comment',compact('data','cates','catename','startdate','enddate','title'));
-
     }
     //存储用户评论
     public function store(Comment $comment ,Request $request)

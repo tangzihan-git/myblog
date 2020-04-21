@@ -14,6 +14,10 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+     {
+        $this->middleware('auth',['except'=>['index','show']]);
+     }
     public function index()
     {
         //
@@ -90,7 +94,7 @@ class TagController extends Controller
     {
         
         // dd($tag);
-        $tag=$tag->article()->paginate(10);
+        $tag=$tag->article()->with(['user','cate'])->paginate(10);
         return view('list',compact('tag'));
 
 
