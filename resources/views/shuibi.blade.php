@@ -25,5 +25,4 @@
 		@include('layouts._aside')
 	</div>
 @endsection
-</body>
-</html>
+

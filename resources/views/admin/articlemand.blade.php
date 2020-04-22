@@ -157,5 +157,3 @@ $('.fa-picture-o').click(function(){
  	})
 
    </script>
-</body>
-</html>

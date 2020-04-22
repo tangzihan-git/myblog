@@ -33,7 +33,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         $banner = Cache::get('banner')? : \DB::table('webset')->pluck('web_banner');
-          
         View::share('banner', $banner);
         //注册观察者
         Article::observe(ArticleObserver::class);

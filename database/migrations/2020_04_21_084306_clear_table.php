@@ -15,7 +15,7 @@ class ClearTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            \DB::table('users')->truncate();
+            
         });
     }
 

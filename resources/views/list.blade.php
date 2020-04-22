@@ -25,13 +25,11 @@
         <span><span class='text-secondary'> </span>浏览（{{$data->visit_num}}）</span>
         <span><span class='text-info'>&nbsp;</span>{{$data->user->name}}</span>
         <span class='float-right '><a href="{{route('articles.show',[$data->id])}}" class='text-success'>++阅读原文</a></span>
-
         </div>
         </div>
         <div class="media-body">
              <h5 class="mt-0 mb-1 h5">{{$data->title}}</h5>
               {!! $data->desc !!}
-
         </div>
     </li>
         @endforeach
@@ -45,5 +43,4 @@
 </div>
 
 @endsection
-</body>
-</html>
+

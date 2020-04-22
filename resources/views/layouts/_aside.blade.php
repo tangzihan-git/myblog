@@ -81,9 +81,8 @@
 				</div>
 				<div class='tools-con'>
 					<ul>
-						<li><a href="#" class='tag-text'>快递查询</a></li>
-						<li><a href="#" class='tag-text'>待添加</a></li>
-						<li><a href="#" class='tag-text'>待添加</a></li>
+						<li><a href="javascript:;" class='tag-text'>待开发~~</a></li>
+						
 					</ul>
 				</div>
 			</div>

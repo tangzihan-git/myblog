@@ -7,8 +7,8 @@
 		<div class='col-md-9 col-sm-12'>
 			<div class='beau mr-30'>
 				<div class='article-header'>
-					<span class='float-right text-secondary'>
-						”只愿世间风景千般万般熙攘过后，字里行间，人我两忘，相对无言“
+					<span class='float-right text-secondary d-none d-sm-block'>
+						“只愿世间风景千般万般熙攘过后，字里行间，人我两忘，相对无言”
 					</span>
 					<h5 class='h5'>美文</h5>
 			    </div>
@@ -21,20 +21,16 @@
 								<div class='card-img'>
 									 <img src="{{$article->img}}" class="card-img-top" alt="...">
 								</div>
-							 
 							  <div class="card-body">
 							  	<strong class='card-title text-truncate'>{!! $article->title !!} </strong>
 							    <p class="card-text overflow-hidden" style='height:6rem'>
 							    {!! $article->desc !!}</p>
 							      <a href="{{route('articles.show',[$article->id])}}" class="text-success mt-2 d-block">+阅读原文</a>
 							  </div>
-
 							</div>
 						</div>
 						@endforeach
 					    @endif
-					
-			
 					</div>
 			    	{!! $cate->render() !!}
 			    </div>
@@ -43,5 +39,3 @@
 	    @include('layouts._aside')
 	</div>
 @endsection
-</body>
-</html>

@@ -5,21 +5,6 @@
 @section('styles')
 <link  rel="stylesheet" href="/front/css/main.css" />
 <link rel="stylesheet" type="text/css" href="/front/css/sinaFaceAndEffec.css" />
-	<style type="text/css">
-		.sb{
-			margin-top:30px;
-			background: #fff;
-		}
-		.sb-con{
-            height:1200px;
-			padding:20px;
-			overflow: hidden;
-		}
-		time{
-			display: block;
-			margin-bottom: 5px;
-		}
-</style>
 @endsection
 @section('content')
 	<div class='row'>
@@ -49,13 +34,15 @@
 								<p><a href="javascript:;" class='btn btn-info'>登录</a></p>
 							</div>
 							<div class="content">
-								<div class="cont-box">
+
+								<div class="cont-box" >
 									<textarea class="text" id='messages' placeholder="<----[笑cry]由于腾讯审核较慢目前留言功能正常使用不需登录"></textarea>
 								</div>
-								<div class="tools-box">
+								<div class="tools-box" >
+									<div class="submit-btn float-left operator-box-btn"><input type="button" id='submit' value="提交留言" /></div>
 									<div class="operator-box-btn"><span class="face-icon"  >☺</span></div>
-									<div class="submit-btn"><input type="button" id='submit' value="提交留言" /></div>
 								</div>
+								
 							</div>
 						</div>
 						<div id="info-show">
@@ -66,15 +53,13 @@
 										<img src="images/1.jpg" / >
 									</div>
 									<div class="reply-cont">
-										<p class="username">{{$v->user_name}}</p>
+										<p class="username">{{$v->user_name?:'热心网友'}}</p>
 										<p class="comment-body">{{$v->user_con}}</p>
 										@if($v->status==1)
 										<p class='text-danger mt-2 ml-2'><span class='text-info'>站长回复：</span>{{$v->replay}}</p>
 										@endif
 										<p class="comment-footer">{{$v->created_at}}</p>
 									</div>
-
-									
 								</li>
 								@endforeach
 							</ul>
@@ -93,67 +78,6 @@
 <script type="text/javascript" src="/front/js/main.js"></script>
 <script type="text/javascript" src="/front/js/sinaFaceAndEffec.js"></script>
 <script type="text/javascript">
-     //留言版
-		// 绑定表情
-		var submit = $('#submit');
-		submit.click(function(){
-			var inputText = htmlEscape($('.text').val());
-			if(inputText==''){
-				alert('请输入内容') 
-				return false
-			};
-				$.ajax({
-        			headers: {
-			    		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					},
-        			url:"{{url('/message')}}",
-        			type:'post',
-        			dataType:'json',
-        			data:{
-        				"content":inputText
-        			},
-        			success:function(msg){
-        				// console.log(msg)
-        				// if(!msg.status){
-        				// 	alert('请先登录');
-        				// 	return false;
-
-        				// }
-						
-						$('#info-show ul').append(reply(AnalyticEmotion(inputText)));
-        			}
-        		})
-			
-		})
-		$('.face-icon').SinaEmotion($('.text'));
-		// 测试本地解析
-		var html;
-		function reply(content){
-			html  = '<li>';
-			html += '<div class="head-face">';
-			html += '<img src="" / >';
-			html += '</div>';
-			html += '<div class="reply-cont">';
-			html += '<p class="username">热心网友</p>';
-			html += '<p class="comment-body">'+content+'</p>';
-			html += '<p class="comment-footer">2016年10月5日</p>';
-			html += '</div>';
-			html += '</li>';
-			return html;
-
-		}
-		function htmlEscape(text){ 
-			  	return text.replace(/[<>"&]/g, function(match, pos, originalText){
-			    switch(match){
-			    case "<": return "&lt;"; 
-			    case ">":return "&gt;";
-			    case "&":return "&amp;"; 
-			    case "\"":return "&quot;"; 
-			  } 
-			  });
-	    }
-
+ var submit=$("#submit");submit.click(function(){var inputText=htmlEscape($(".text").val());if(inputText==""){alert("请输入内容");return false}$.ajax({headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},url:"{{url('/message')}}",type:"post",dataType:"json",data:{"content":inputText},success:function(msg){$("#info-show ul").append(reply(AnalyticEmotion(inputText)))}})});$(".face-icon").SinaEmotion($(".text"));var html;function reply(content){html="<li>";html+='<div class="head-face">';html+='<img src="" / >';html+="</div>";html+='<div class="reply-cont">';html+='<p class="username">热心网友</p>';html+='<p class="comment-body">'+content+"</p>";html+='<p class="comment-footer">2016年10月5日</p>';html+="</div>";html+="</li>";return html}function htmlEscape(text){return text.replace(/[<>"&]/g,function(match,pos,originalText){switch(match){case"<":return"&lt;";case">":return"&gt;";case"&":return"&amp;";case'"':return"&quot;"}})};
 </script>
 @endsection
-</body>
-</html>
